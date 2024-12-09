@@ -37,6 +37,10 @@ Een use case bevat de volgende elementen:
 - **Domeinspecifieke regels**
 - **Op te klaren punten** (optioneel)
 
+voorbeeld Use case:
+
+![alt text](image.png)
+
 #### 3.3.1 Primary Actor & Stakeholders
 
 De **primary actor** is de persoon die het verhaaltje activeert; hij is degene die de functionaliteit wenst uit te voeren op het systeem. Een **stakeholder** of belanghebbende is een persoon die er belang bij heeft dat de primary actor zijn doel kan realiseren, maar zal zelf niet actief deelnemen aan het verhaal.
