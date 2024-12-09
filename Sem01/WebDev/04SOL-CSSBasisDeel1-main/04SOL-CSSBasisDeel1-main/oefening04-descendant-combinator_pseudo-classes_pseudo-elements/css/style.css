@@ -1,0 +1,36 @@
+body {
+  background-color: lightgray;
+  font-family: Courier, monospace;
+}
+
+/* Combinators - pseudo-classes - pseudo-elemnts  */
+/**************************************************/
+
+/* Het resultaat moet hetzelfde zijn als de vorige oefening maar 
+    nu zonder class attributen toe te voegen.
+    Bij deze oefening voeg je enkel CSS toe.
+    De HTML laat je ongewijzigd.*/
+
+/* De content van de h2 in het eerste artikel en de derde li 
+van elke keuzelijst worden in het rood weergegeven. */
+article:first-of-type h2, li:nth-child(3) {
+  color: red;
+}
+
+/* De derde li in de geneste keuzelijst moet vet worden weergegeven. */
+ul ul li:nth-child(3) {
+  font-weight: bold;
+}
+
+/* De eerste letter van de eerste paragraaf geef je
+een lettergrootte van 2 em.*/
+header p:first-of-type::first-letter {
+  font-size: 2em;
+}
+
+/* De laatste paragraaf van de aside in bold en tekstkleur #128956.
+Definieer een class groen en pas deze toe op het juiste HTML-element.*/
+aside p:last-of-type {
+  color: #128956;
+  font-weight: bold;
+}

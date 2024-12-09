@@ -1,0 +1,71 @@
+#container>* {
+  border: 1px solid #000;
+  padding: 10px;
+}
+
+h1,
+h2,
+#score,
+nav {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+#container {
+  display: block grid;
+  gap: 10px;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    "title board"
+    "stats board"
+    "score ctrls";
+}
+
+header {
+  grid-area: title;
+}
+
+#score {
+  grid-area: score;
+  display: block grid;
+  align-items: center;
+  justify-items: center;
+}
+
+#stats {
+  grid-area: stats;
+  align-self: start;
+}
+
+main {
+  grid-area: board;
+}
+
+nav {
+  grid-area: ctrls;
+  justify-self: center;
+}
+
+@media screen and (orientation:portrait) {
+  #container {
+    grid-template-areas:
+      "title stats"
+      "score stats"
+      "board board"
+      "ctrls ctrls";
+  }
+}
+
+@media screen and (orientation:portrait) and (max-width:500px) {
+  #container {
+    grid-template-areas:
+      "title score"
+      "board board"
+      "ctrls ctrls";
+  }
+
+  #stats {
+    display: none;
+  }
+}

@@ -1,0 +1,84 @@
+/*
+
+/***************/
+/* OEFENING 02 */
+/***************
+
+Vraag 1:
+*******
+
+Deze vraag probeer je op te lossen zonder gebruik te maken van de Developer Tools.
+
+In onderstaande CSS-code zie je dat de kleur van het element <li class="red">nest 1</li> verschillende keren wordt ingesteld. 
+Zoek hieronder zelf alle stijlen op die betrekking hebben op het element (<li class="red">nest 1</li>).
+Noteer telkens: kleur - css selector - specificity. Rangschik vervolgens de lijst in dalende volgorde volgens specificity.
+
+Controleer of jouw lijst overeenkomt met deze in de Developer Tools.
+
+red    - .red     - 0,1,0
+blue   - ul li li - 0,0,3
+green  - ul li    - 0,0,2
+yellow - li       - 0,0,1
+
+
+Vraag 2: (Multiple choice)
+*******
+  Beschouw de li-elementen in het nav-element. Hoe krijgen deze elementen hun waarde
+  voor de CSS-eigenschap list-style-type?
+    1. via de cascade
+    2. via inheritance CORRECT ANTWOORD
+    3. ze krijgen hun initial value
+  Tip Maak gebruik van de Developer Tools
+
+
+Vraag 3: (Multiple choice)
+*******
+  Beschouw het ul-element in het nav-element. Hoe verkrijgt dit element zijn waarde
+  voor de CSS-eigenschap list-style-type?
+    1. via de cascade CORRECT ANTWOORD
+    2. via inheritance
+    3. het krijgt zijn initial value
+  Tip Maak gebruik van de Developer Tools
+
+*/
+
+
+body{
+    font-family: monospace, Calibri, sans-serif;
+}
+
+a{
+    text-decoration: none;
+}
+
+li{
+    color: yellow;
+}
+
+ul li{
+    color: green;
+}
+
+.red{
+    color:red;
+}
+
+ul li li{
+    color: blue;
+}
+
+aside{
+    color: red;
+}
+ul a{
+    color:red;
+}
+nav a{
+    color: yellow;
+}
+nav a{
+    color: blue;
+}
+
+
+

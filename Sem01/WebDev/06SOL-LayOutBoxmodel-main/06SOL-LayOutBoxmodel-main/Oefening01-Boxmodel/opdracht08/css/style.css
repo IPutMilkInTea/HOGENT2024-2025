@@ -1,0 +1,23 @@
+span {
+  font-weight: bold;
+  border: 1px solid blue;
+  background-color: lightblue;
+}
+
+span:nth-of-type(1) {
+  /* visibility: hidden; */
+}
+
+span:nth-of-type(2) {
+  width: 100px;
+  height: 50px;
+  /* display: none; */
+}
+
+span {
+  /* Het eerste span-element zal de volledige breedte 
+  van zijn parent-element innemen. 
+  Het tweede zal een breedte van 100px hebben.
+  */
+  display: block;
+}

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Resolution switching</title>
+        <style>
+            img {
+                max-width: 100%;
+            }
+        </style>
+    </head>
+
+    <body>
+        <h1>Resolution switching with width descriptor</h1>
+
+        <figure>
+            <img srcset="images/heelflip_400w.jpg 400w,
+                         images/heelflip_600w.jpg 600w,
+                         images/heelflip_900w.jpg 900w"
+                 sizes="(max-width: 800px) 33.3vw, (max-width: 1200px) 50vw, 100vw" src="images/heelflip_400w.jpg"
+                 alt="skater doing a 6 stair heel flip">
+            <figcaption>Use responsive tools to load different versions of this image</figcaption>
+        </figure>
+    </body>
+
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Bestel een pizza</title>
+        <link href="css/style.css" rel="stylesheet" />
+    </head>
+
+    <body>
+
+        <form action="/order" method="post">
+            <fieldset>
+                <legend>Plaats bestelling</legend>
+
+                <label for="naam">Naam</label>
+                <input type="text" name="naam" id="naam" placeholder="Naam" required />
+
+                <label for="voornaam">Voornaam</label>
+                <input type="text" name="voornaam" id="voornaam" placeholder="Voornaam" required />
+
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" />
+
+                <label for="wachtwoord">Wachtwoord</label>
+                <input type="password" name="wachtwoord" id="wachtwoord" required />
+
+                <label for="pizza">Pizza</label>
+                <select name="pizza" id="pizza" required>
+                    <option value="napolitano">Napolitano</option>
+                    <option value="4fromaggi">Quatro fromaggi</option>
+                    <option value="mozzarello" selected>Mozarello</option>
+                    <option value="speciale">Speciale</option>
+                    <option value="bolognese">Bolognese</option>
+                </select>
+
+                <label for="aantal">Aantal</label>
+                <input type="number" name="aantal" id="aantal" min="1" max="5" required />
+
+                <div>
+                    <div class="description">Extra's?</div>
+                    <input type="checkbox" id="kaas" name="extras" value="kaas" checked /><label for="kaas">kaas</label>
+                    <input type="checkbox" name="extras" id="hesp" value="hesp" /><label for="hesp">hesp</label>
+                    <input type="checkbox" name="extras" id="tomaten" value="tomaten" checked /><label
+                           for="tomaten">tomaten</label>
+                </div>
+                <div>
+                    <label for="datum">Datum</label>
+                    <input type="date" name="datum" id="datum" required />
+                </div>
+                <div>
+                    <div class="description">Uur</div>
+                    <input type="radio" name="levering" id="lev16" value="1618" required />
+                    <label for="lev16">16-18u</label>
+
+                    <input type="radio" name="levering" id="lev18" value="1820" checked required />
+                    <label for="lev18">18-20u</label>
+
+                    <input type="radio" name="levering" id="lev20" value="2022" required />
+                    <label for="lev20">20-22u</label>
+                </div>
+                <label for="bezorger">Kies je bezorger</label>
+                <input list="bezorgers" id="bezorger" name="bezorger" />
+                <datalist id="bezorgers">
+                    <option value="Stefaan Samyn"></option>
+                    <option value="Andreas De Witte"></option>
+                    <option value="Patrick Lauwaerts"></option>
+                    <option value="Lotte Vansteenberghe"></option>
+                    <option value="Steven Van Impe"></option>
+                </datalist>
+                <label for="extra">Extra informatie</label>
+                <textarea name="extra" id="extra"></textarea>
+
+                <input type="submit" value="Bestel" />
+
+            </fieldset>
+        </form>
+    </body>
+
+</html>

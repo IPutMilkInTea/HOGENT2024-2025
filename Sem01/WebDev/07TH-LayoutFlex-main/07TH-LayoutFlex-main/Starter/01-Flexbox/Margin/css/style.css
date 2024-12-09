@@ -1,0 +1,26 @@
+/* Basic styling */
+div {
+  box-sizing: border-box;
+}
+body{
+  font-family: Calibri, 'Trebuchet MS', sans-serif;
+}
+ul{
+  list-style-type: none;
+  background-color: lightgray;
+  display: flex;
+  padding: 5px;
+}
+li{
+  color: white;
+  background-color: deepskyblue;
+  border: 1px solid white;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  text-align: center;
+  padding: 2px;
+  margin: 5px;
+  flex:0 0 auto; /* default value is 0 1 auto */
+}
+
+

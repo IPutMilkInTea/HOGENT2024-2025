@@ -1,0 +1,26 @@
+html {
+  box-sizing: border-box;
+}
+
+*, ::before, ::after {
+  box-sizing: inherit;
+}
+
+/* Opmaak van de boxes */
+.flex-container > div {
+  border: 1px solid #000;
+  background-color: lightgreen;
+  padding: 10px;
+}
+
+/* Plaats je oplossing hieronder */
+.flex-container {
+  display: block flex;
+}
+
+.flex-container > div {
+  flex-grow: 1;
+  flex-basis: 0;
+  /* Het bovenstaande kan korter geschreven worden als:
+          'flex: 1 1 0' of 'flex: 1' */
+}

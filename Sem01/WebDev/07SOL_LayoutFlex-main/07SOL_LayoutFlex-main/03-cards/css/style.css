@@ -1,0 +1,41 @@
+body {
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  margin: 15px;
+}
+
+.card {
+  width: 245px;
+  border: 2px solid rgb(96, 139, 168);
+  border-radius: 5px;
+}
+
+.card footer {
+  background-color: rgba(96, 139, 168, 0.2);
+  padding: 10px;
+}
+
+.card .content {
+  padding: 10px;
+}
+
+/* OPLOSSING gebaseerd op https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Typical_Use_Cases_of_Flexbox#Card_layout_pushing_footer_down */
+
+/* 1. We plaatsen de drie 'cards' naast elkaar */
+.cards {
+  display: block flex;
+}
+/* en geven elke card behalve de eerste
+een linkermarge van 5px */
+.card + .card {
+  margin-inline-start: 5px;
+}
+
+/* 2. We maken van elke 'card' een flex-container, met flex-direction: column */
+.card {
+  display: block flex;
+  flex-direction: column;
+}
+/* en we stellen in dat het eerste element (.content) van de 'card', mag groeien. */
+.card .content {
+  flex: auto; /* of 'flex: 1 1 auto' of 'flex-grow: 1;' */
+}

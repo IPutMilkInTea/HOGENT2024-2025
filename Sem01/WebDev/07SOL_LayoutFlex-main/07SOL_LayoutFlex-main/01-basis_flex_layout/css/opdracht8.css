@@ -1,0 +1,24 @@
+html {
+  box-sizing: border-box;
+}
+
+*, ::before, ::after {
+  box-sizing: inherit;
+}
+
+/* Opmaak van de boxes */
+.flex-container > div {
+  border: 1px solid #000;
+  background-color: lightgreen;
+  padding: 10px;
+}
+
+.flex-container {
+  display: block flex;
+  border: 4px solid blue;
+}
+
+/* Plaats je oplossing hieronder */
+.flex-container {
+  justify-content: center;
+}

@@ -1,15 +1,18 @@
 # TODO List
 
-- Linux for data scientists labo's:
-  - Labo 2
-  - Labo 3
-  - Labo 4
-- Lieven Scheire AI (extra oppertuniteit GEEL) 19/11
-- Linux opdracht tegen 8/12
-- MML bijhouden
+- Linux for data scientists labo's
+- Bijhouden vakken:
+
+  - Costing
+  - MML
+  - LinuxDS
+  - CCSA
+  - PC
+  - WebDev
+  - RD&D
+  - FA
 - Skillslab (extra oppertuniteit GROEN)
 - Samenvattingen vakken toevoegen/aanmaken
-- (extra oppertuniteit BLAUW)
-- FA opdracht
+- FOSDEM25 (extra oppertuniteit BLAUW)
 
 stuff to do !!!

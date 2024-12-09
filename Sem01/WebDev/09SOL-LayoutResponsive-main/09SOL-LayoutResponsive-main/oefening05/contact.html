@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Schilderwerken Vander Beken</title>
+    <link rel="stylesheet" href="css/main.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <header>
+        <img src="images/logo_wide.svg" alt="Vander Beken Logo" />
+      </header>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="over_ons.html">Over ons</a></li>
+          <li><a href="realisaties.html">Realisaties</a></li>
+          <li><a class="current">Contact</a></li>
+        </ul>
+      </nav>
+      <main id="contact-page">
+        <div class="adres">
+          <h1>Adres</h1>
+          <address>
+            Nederzwalmsesteenweg 94<br />
+            9750 Zingem<br />
+            <a href="tel:+32999999999">+32 999 99 99 99</a><br />
+            <a href="mailto:info@test.be">info@test.be</a>
+          </address>
+        </div>
+        <div class="opening">
+          <h1>Contact</h1>
+          <p>
+            Wij zijn bereikbaar op de onderstaande
+            ogenblikken
+          </p>
+          <table>
+            <tr>
+              <th></th>
+              <th>Voormiddag</th>
+              <th>Namiddag</th>
+            </tr>
+            <tr>
+              <th>Maandag</th>
+              <td colspan="2">10h00 - 15h00</td>
+            </tr>
+            <tr>
+              <th>Dinsdag</th>
+              <td>10h00 - 12h00</td>
+              <td>Gesloten</td>
+            </tr>
+            <tr>
+              <th>Woensdag</th>
+              <td>Gesloten</td>
+              <td>14h00 - 16h00</td>
+            </tr>
+            <tr>
+              <th>Donderdag</th>
+              <td rowspan="2">10h00 - 12h00</td>
+              <td rowspan="2">15h00 - 17h00</td>
+            </tr>
+            <tr>
+              <th>Vrijdag</th>
+            </tr>
+            <tr>
+              <th>Zaterdag</th>
+              <td rowspan="2" colspan="2">Gesloten</td>
+            </tr>
+            <tr>
+              <th>Zondag</th>
+            </tr>
+          </table>
+        </div>
+        <div class="afspraak">
+          <h1>Maak een afspraak</h1>
+          <p>
+            Vul volgend formulier in om een afspraak te maken (Naam - email -
+            telefoon zijn verplicht)
+          </p>
+          <form action="/afspraak.php" method="get">
+            <p>
+              <label for="name">Naam &amp; voornaam</label>
+              <input type="text" name="name" id="name" required placeholder="Naam en voornaam" />
+            </p>
+            <p>
+              <label for="email">E-mail</label>
+              <input type="email" name="email" id="email" required placeholder="E-mailadres" />
+            </p>
+            <p>
+              <label for="tel">Telefoon</label>
+              <input type="tel" name="tel" id="tel" placeholder="Telefoon" />
+            </p>
+            <p>
+              <label for="datum">Voorkeur bezoek datum</label>
+              <input type="date" name="date" id="datum" />
+            </p>
+            <p>
+              <label for="uur">Voorkeur bezoek uur</label>
+              <select name="uur" id="uur">
+                <option value="1718">Tussen 17 en 18 uur</option>
+                <option value="1819" selected>Tussen 18 en 19 uur</option>
+                <option value="1920">Tussen 19 en 20 uur</option>
+                <option value="na20">Na 20 uur</option>
+              </select>
+            </p>
+            <p>
+              <div class="radios">
+                <input type="radio" id="herschilderen" name="hernew" value="her" />
+                <label class="radio" for="herschilderen">Herschilderen</label>
+              </div>
+              <div class="radios">
+                <input type="radio" id="nieuweWoning" name="hernew" value="new" />
+                <label class="radio" for="nieuweWoning">Nieuwe woning</label>
+              </div>
+            </p>
+            <p>
+              <label for="extra">Extra informatie:</label>
+              <textarea name="extra" id="extra"></textarea>
+            </p>
+            <p>
+              <input type="submit" value="verzend" />
+            </p>
+          </form>
+        </div>
+      </main>
+      <footer>
+        <p>&copy; Schilder- en decoratiewerken Vander Beken</p>
+      </footer>
+    </div>
+  </body>
+
+</html>

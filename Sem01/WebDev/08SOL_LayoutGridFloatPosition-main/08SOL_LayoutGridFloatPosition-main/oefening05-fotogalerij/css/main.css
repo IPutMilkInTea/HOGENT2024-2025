@@ -1,0 +1,28 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  margin: 15px;
+}
+
+h1 {
+  font-size: 2.5rem;
+  color: #444;
+  text-align: center;
+}
+
+/* Plaats je oplossing hieronder */
+
+/* De flexible grid creëren...  */
+main {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+/* De foto's responsive maken */
+main img {
+  max-width: 100%;
+}

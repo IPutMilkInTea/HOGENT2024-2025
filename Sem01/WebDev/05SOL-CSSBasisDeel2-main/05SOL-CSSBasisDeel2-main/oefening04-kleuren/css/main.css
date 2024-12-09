@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+
+h1,
+h2 {
+  font-family: 'Merriweather', serif;
+}
+
+section:nth-of-type(1) h2 {
+  color: red;
+}
+
+section:nth-of-type(2) h2 {
+  color: yellow;
+}
+
+section:nth-of-type(3) h2 {
+  color: green;
+}
+
+li li {
+  text-decoration: underline;
+  list-style-type: none;
+}
+
+.vet {
+  font-weight: bold;
+}
+
+/* correctie voor 'Lente' en 'Nieuw leven' */
+li li {
+  font-weight: normal;
+}

@@ -1,0 +1,199 @@
+/* OPLOSSING*/
+@import url(normalize.css);
+
+
+/* import Google font Roboto */
+/* ************************* */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&display=swap');
+
+/* Algemeen */
+/* ******** */
+
+/*  */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  color: #111;
+
+  /* OPLOSSING*/
+  background-color: #525252;  
+}
+
+/* Stel de regelhoogte voor de paragrafen en de lijsten in op 1.5.
+Zo krijgen we een beetje meer ruimte tussen de regels.*/
+p,
+li {
+  line-height: 1.5;
+}
+
+/* Stel de kleuren in voor de paginablokken: nav en footer
+    nav
+      achtergrondkleur: #393939
+    footer 
+      achtergrondkleur: #ed1c24
+      tekstkleur: wit
+      */
+
+nav {
+  background-color: #393939;
+}
+footer {
+  background-color: #ed1c24;
+  color: white;
+}
+
+/*  */
+header,
+main {
+  background-color: #fff;
+}
+
+/* algemene opmaak voor de hyperlinks:
+een rode tekstkleur en geen onderstreping */
+a {
+  color: #ed1c24;
+  text-decoration: none;
+}
+/* Als er gehoverd wordt over een link 
+dan moet die onderstreept worden */
+a:hover {
+  text-decoration: underline;
+}
+
+/* Navigatiebalk*/
+/* **************/
+
+/* Voor het nav-element:
+   - stel je een groter lettertype in nl. 1.2em
+   - en verwijder je de bullets bij de unordered list
+   - alle hyperlinks in de navigatiebalk zijn wit
+   - met uitzondering van de current link (degene
+   met class current) deze is rood en niet onderstreept.
+   */
+nav {
+  /* lettertype vergroten */
+  font-size: 1.2em;
+}
+
+nav ul {
+  /* bullets verwijderen */
+  list-style-type: none;
+}
+
+nav a {
+  /* in de navigatiebalk zijn de hyperlinks wit */
+  color: white;
+}
+
+/* de current link in de navigatiebalk is rood
+en niet onderstreept */
+nav .current {
+  color: #ed1c24;
+  text-decoration: none;
+}
+
+/* Page Layout */
+/**************/
+
+/* OPLOSSING*/
+/* beetje padding links en rechts voor header, main en footer.*/
+header,
+main,
+footer {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+/* OPLOSSING*/
+/* de witruimte bij header en footer aanpassen */
+header {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+footer p {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+
+/* OPLOSSING*/
+.container {
+  /* container centreren en 
+  breedte beperken tot 960px */
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+/* OPLOSSING*/
+/* CSS-grid layout aanpassen naar twee kolommen */
+.container {
+  display: grid;
+  grid-template-columns: 20ch 1fr;
+  grid-template-areas:
+    'header header '
+    'nav    main   '
+    'nav    main   '
+    'footer footer ';
+
+  gap: 3px;
+}
+header {
+  grid-area: header;
+}
+footer {
+  grid-area: footer;
+}
+nav {
+  grid-area: nav;
+}
+main {
+  grid-area: main;
+}
+
+/* OPLOSSING*/
+/* kleur van de gap kunnen we instellen door de .container
+een achtergrondkleur te geven */
+.container {
+  background-color: grey;
+}
+
+/* Tabellen */
+/************/
+table {
+  border-collapse: collapse;
+}
+th,
+td {
+  border: 1px solid #424242;
+}
+
+/* De eerste tabelrij krijgt:
+  - achtergrondkleur: #424242
+  - tekstkleur: white
+  */
+tr:first-child th {
+  background-color: #424242;
+  color: white;
+}
+
+/* De tekst is in alle cellen gecentreerd */
+td {
+  text-align: center;
+}
+
+/* Formulier */
+/*************/
+/* Voor de submit-knop stel je een groter 
+lettertype 1.2em in en dezelfde kleuren
+als bij de eerste tabel-rij:
+  - achtergrondkleur: #424242
+  - tekstkleur: white 
+*/
+input[type='submit'] {
+  font-size: 1.2em;
+  background-color: #424242;
+  color: white;
+}

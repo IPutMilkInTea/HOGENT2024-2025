@@ -1,0 +1,74 @@
+/* nodig omdat input type=text en select en textarea even breed zouden zijn */
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+::before,
+::after {
+  box-sizing: inherit;
+}
+
+body {
+  font: 14px/1.4 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+form {
+  inline-size: 50%;
+}
+
+fieldset {
+  border: 2px solid #49708f;
+  border-radius: 10px;
+}
+
+legend {
+  color: #49708f;
+  font-size: 1.5em;
+}
+
+label,
+.description {
+  color: #395870;
+  font-weight: bold;
+  display: block;
+  margin-block-end: 5px;
+}
+
+input[type='text'],
+input[type='email'],
+input[type='number'],
+input[type='date'],
+input[type='password'],
+input[list],
+textarea,
+select {
+  background: #fff;
+  border: 1px solid #c6c7cc;
+  border-radius: 5px;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1);
+  color: #636466;
+  padding: 6px;
+  inline-size: 100%;
+  margin-block-end: 10px;
+}
+
+input[type='radio'] + label,
+input[type='checkbox'] + label {
+  font-weight: normal;
+  display: inline flow-root;
+  inline-size: 100px;
+}
+
+input[type='submit'] {
+  background: linear-gradient(#49708f, #293f50);
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  font-weight: bold;
+  margin-block-end: 20px;
+  padding: 15px;
+  inline-size: 100%;
+}

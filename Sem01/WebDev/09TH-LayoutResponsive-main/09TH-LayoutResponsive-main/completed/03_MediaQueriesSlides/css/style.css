@@ -1,0 +1,68 @@
+p {
+    font-size: 1.5em;
+    background-color: burlywood;
+}
+
+#tablet-size {
+    display: none;
+}
+
+@media screen and (min-width:480px) and (max-width : 768px) {
+    p {
+        background-color: cornflowerblue;
+        color: lightyellow;
+    }
+
+    #tablet-size {
+        display: block;
+    }
+}
+
+/* Examples from slides */
+/* @media screen and (min-width: 500px) and (max-width: 800px) {
+        p {
+            background-color: chocolate;
+            color: lightyellow;
+        }
+    } */
+
+/* @media screen and (min-width: 500px),
+    screen and (max-width:800px) {
+        p {
+            background-color: chocolate;
+            color: lightyellow;
+        }
+    }   */
+
+/* @media screen and (orientation:landscape) {
+        p {
+            background-color: chocolate;
+            color: lightyellow;
+        }
+    } */
+
+/* at time of writing this works only in FireFox */
+/* @media screen and (width>500px) {
+        p {
+            background-color: chocolate;
+            color: lightyellow;
+        }
+    } */
+
+/* @media (min-aspect-ratio: 1/1) {
+        p {
+            background-color: deepskyblue;
+        }
+    } */
+
+/* @media (max-width: 50em) {
+        p {
+            background-color: limegreen;
+        }
+    } */
+
+/* @media not print {
+        p {
+            background-color: steelblue;
+        }
+    } */

@@ -1,0 +1,70 @@
+body {
+  font-family: monospace;
+}
+
+h3 {
+  font-size: 1.2em;
+}
+
+table,
+td,
+th {
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding: 5px;
+  text-align: center;
+}
+
+/* Eerste tabel */
+/****************/
+
+table:first-of-type tr:nth-child(2) {
+  background-color: gold;
+}
+
+table:first-of-type tr:nth-child(3) {
+  background-color: silver;
+}
+
+table:first-of-type tr:nth-child(4),
+table:first-of-type tr:last-child {
+  background-color: peru;
+}
+
+/* Tweede tabel */
+/****************/
+
+table:nth-of-type(2) th:first-child {
+  background-color: palegreen;
+}
+table:nth-of-type(2) th:nth-child(2) {
+  background-color: lightsteelblue;
+}
+table:nth-of-type(2) th:last-child {
+  background-color: lightpink;
+}
+
+/* Derde tabel */
+/***************/
+/* Hier zijn er veel mogelijke oplossingen. Eén mogelijke oplossing
+vind je hieronder. */
+
+table:last-of-type th:last-child,
+table:last-of-type td:last-child  {
+  background-color: lightpink;
+}
+
+table:last-of-type th:nth-last-child(2),
+table:last-of-type td:nth-last-child(2) {
+  background-color: lightsteelblue;
+}
+
+table:last-of-type th:nth-last-child(3),
+table:last-of-type td:nth-last-child(3) {
+  background-color: palegreen;
+}
+
+/* De cellen in de eerste kolom opnieuw wit maken */
+table:last-of-type td:first-child {
+  background-color: white;
+}

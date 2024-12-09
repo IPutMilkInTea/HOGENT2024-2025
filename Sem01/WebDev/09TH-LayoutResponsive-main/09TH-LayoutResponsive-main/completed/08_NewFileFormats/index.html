@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>New File Formats</title>
+        <style>
+            body {
+                text-align: center;
+            }
+
+            img {
+                max-width: 100%;
+            }
+
+            figure {
+                display: inline-block;
+            }
+        </style>
+    </head>
+
+    <body>
+        <h1>Skaters rule the world</h1>
+        <p>Don't forget to give me a try in MS Edge browser...</p>
+        <picture>
+            <source srcset="images/skater.avif" type="image/avif">
+            <source srcset="images/skater.webp" type="image/webp">
+            <img src="images/skater.jpg" alt="Skater doing high indy grab air out of bowl">
+        </picture>
+        <h1>Spot the difference</h1>
+        <p>Look at loading times over a slow 3G connection...</p>
+        <figure>
+            <img src="images/skater.avif" alt="Skater doing high indy grab air out of bowl">
+            <figcaption>19 kB</figcaption>
+        </figure>
+        <figure>
+            <img src="images/skater.webp" alt="Skater doing high indy grab air out of bowl">
+            <figcaption>39 kB</figcaption>
+        </figure>
+        <figure>
+            <img src="images/skater.jpg" alt="Skater doing high indy grab air out of bowl">
+            <figcaption>479 kB</figcaption>
+        </figure>
+    </body>
+
+</html>

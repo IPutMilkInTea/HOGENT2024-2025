@@ -1,0 +1,57 @@
+/* De boxes opmaken */
+/* **************** */
+* {
+  box-sizing: border-box;
+}
+
+.grid-container {
+  background-color: cyan;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.grid-container div {
+  border: 1px solid black;
+  background-color: white;
+  border-radius: 5px;
+  padding: 1em;
+}
+
+/* CSS Grid Layout */
+/*******************/
+/*de hoogte van de eerste rij stellen we in op 110px
+bijkomende impliciet gemaakte rijen krijgen een hoogte van 150px*/
+.grid-container {
+  display: block grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-auto-rows: minmax(100px, auto);
+}
+
+/* Merk op dat de getallen lijnnummers zijn.
+  'grid-row: 3/5' betekent dus dat de div 
+  rij 3 en rij 4 overspant.
+ */
+.box1 {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 1;
+  grid-row-end: 4;
+}
+.box2 {
+  grid-column-start: 3;
+  grid-column-end: 4;
+  grid-row-start: 1;
+  grid-row-end: 3;
+}
+.box3 {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+.box4 {
+  grid-column-start: 2;
+  grid-column-end: 4;
+  grid-row-start: 3;
+  grid-row-end: 4;
+}

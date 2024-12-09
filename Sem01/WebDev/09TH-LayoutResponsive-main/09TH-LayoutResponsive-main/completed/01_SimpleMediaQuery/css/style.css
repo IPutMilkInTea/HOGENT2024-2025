@@ -1,0 +1,12 @@
+p {
+    font-size: 1.5em;
+    background-color: burlywood;
+}
+
+/* Media Query opgenomen in CSS */
+@media screen and (min-width : 800px) {
+    p {
+        background-color: chocolate;
+        color: lightyellow;
+    }
+}

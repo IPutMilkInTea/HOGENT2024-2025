@@ -1,0 +1,21 @@
+#box1 {
+    border: 5px solid orange;
+
+    /** max-width zorgt ervoor dat we geen horizontale schuifbalk krijgen
+    bij een smal browser-venster **/
+    /* width: 640px; */
+    max-width: 640px;
+}
+#box2 {
+    border: 5px solid blue;
+
+    /** Meestal is het geen goed idee om een vaste  
+    hoogte in te stellen voor een box met tekst. **/
+    /* height: 20px; */
+    /* overflow: hidden; */
+}
+
+div {
+    /* padding is de witruimte tussen de tekst en de 'border' */
+    padding: 20px;
+}

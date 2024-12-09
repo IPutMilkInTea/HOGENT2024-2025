@@ -1,0 +1,20 @@
+/* De witruimte boven en links van de div-elementen 
+is afkomstig van de marges van het body-element. 
+In de User agent stylesheet wordt margin: 8px; 
+ingesteld op het body-element. */
+body {
+  margin: 0;
+}
+
+#box1 {
+  border: 5px solid orange;
+  margin-bottom: 20px;
+}
+
+#box2 {
+  border: 5px solid blue;
+  /* Deze marge heeft geen effect vanwege 'collapsing marges':
+  de margin-bottom van box1 raakt aan de margin-top van box2
+  en bijgevolg wordt enkel de grootste behouden.*/
+  margin-top: 15px;
+}

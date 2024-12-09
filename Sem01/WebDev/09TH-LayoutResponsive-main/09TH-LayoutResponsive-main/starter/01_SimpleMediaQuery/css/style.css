@@ -1,0 +1,11 @@
+/* Deze CSS is voor kleine schermen */
+p {
+    font-size: 1.5em;
+    background-color: burlywood;
+}
+
+/* Deze CSS is voor grote schermen */
+/* p {
+    background-color: chocolate;
+    color: lightyellow;
+} */

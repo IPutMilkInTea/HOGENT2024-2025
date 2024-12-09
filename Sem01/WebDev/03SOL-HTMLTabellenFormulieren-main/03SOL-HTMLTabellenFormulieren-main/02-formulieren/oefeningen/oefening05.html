@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Poll</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+    <h1>Poll.</h1>
+    <form action="mailto:naam@server.com?subject=Poll" method="post" enctype="text/plain">
+        <fieldset>
+            <legend>Ik volg Web Development I</legend>
+            <label><input type="radio" name="les" value="830-1000Campus" required/>Op de campus van 8:30-10:00</label><br>
+            <label><input type="radio" name="les" value="1100-1230Campus" />Op de campus van 11:00-12:30</label><br>
+            <label><input type="radio" name="les" value="1100-1230Online" />Online van 11:00-12:30</label>
+        </fieldset>
+        <fieldset>
+            <legend>Examen Web Development I</legend>
+            <label><input type="radio" name="examen" value="campusLaptop" required />Op de campus op laptop</label><br>
+            <label><input type="radio" name="examen" value="flandersExpo" />In Flanders Expo - schriftelijk</label><br>
+            <label><input type="radio" name="examen" value="onLine" />Online op laptop</label><br>
+            <label><input type="radio" name="examen" value="mondeling" />Online mondeling</label>
+        </fieldset>
+        <div><input type="submit" value="Verstuur"><input type="reset" value="Clear"></div>
+    </form>
+</body>
+
+</html>

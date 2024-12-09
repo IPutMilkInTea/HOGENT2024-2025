@@ -1,0 +1,20 @@
+p {
+  padding: 15px;
+}
+
+#box1 {
+  width: 640px;
+  height: 100px;
+  border: 6px solid red;
+}
+
+#box2 {
+  box-sizing: border-box;
+
+  /* 682px=6px+15px+640px+15px+6px */
+  width: 682px;
+  /* 142px=6px+15px+100pX+15px+6px */
+  height: 142px;
+
+  border: 6px solid blue;
+}

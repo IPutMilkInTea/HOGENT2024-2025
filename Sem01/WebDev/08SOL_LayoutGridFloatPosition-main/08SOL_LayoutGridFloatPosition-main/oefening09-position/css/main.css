@@ -1,0 +1,40 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+}
+
+/* Page layout */
+
+main {
+  width: 752px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+}
+
+/* Message box */
+
+.message-box {
+  background-color: lightblue;
+  border: 5px solid #000;
+}
+
+.message-box {
+  position: absolute;
+  width: 400px;
+  height: 150px;
+  left: 176px; /* (752-400)/2 = 176*/
+  top: 150px; 
+  padding: 10px;
+}
+
+.close-button {
+  width: 2rem;
+  height: 2rem;
+  right: -1rem; 
+  top: -1rem; 
+  position: absolute;
+}

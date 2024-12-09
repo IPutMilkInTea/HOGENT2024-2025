@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Keuzelijsten</title>
+    <link rel="stylesheet" href="css/main.css" />
+  </head>
+
+  <body>
+    <h1>Maak de juiste keuze.</h1>
+    <form
+      action="mailto:naam@server.com?subject=Keuzes"
+      method="post"
+      enctype="text/plain"
+    >
+      <div>
+        <label
+          >Kies je favoriete serie:
+          <select name="serie">
+            <option value="GOT">Game of Thrones</option>
+            <option value="Peaky">Peaky Blinders</option>
+            <option value="Papel">La Casa de Papel</option>
+            <option value="Baby">Baby</option>
+            <option value="Vikings">Vikings</option>
+            <option value="Norsemen">Norsemen</option>
+          </select>
+        </label>
+      </div>
+      <div>
+        <label
+          >Kies je favoriete lector:
+          <input list="lector" name="lector" />
+          <datalist id="lector">
+            <option value="Karine Samyn"></option>
+            <option value="Stefaan Samyn"></option>
+            <option value="Patrick Lauwaerts"></option>
+            <option value="Lotte Vansteenberghe"></option>
+            <option value="Stefaan De Cock"></option>
+          </datalist>
+        </label>
+      </div>
+      <div><input type="submit" value="Maak je keuze" /></div>
+    </form>
+  </body>
+</html>

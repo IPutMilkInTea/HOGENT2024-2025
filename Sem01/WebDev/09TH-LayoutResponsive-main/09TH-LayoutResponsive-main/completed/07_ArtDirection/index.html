@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Art Direction</title>
+        <style>
+            body {
+                text-align: center;
+            }
+
+            img {
+                width: 90vw;
+            }
+        </style>
+    </head>
+
+    <body>
+        <header>
+            <h1>Foobar Flowershop</h1>
+            <p>We sell the best flowers!</p>
+        </header>
+        <picture>
+            <source media="(max-width: 600px)" srcset="images/flower-square.jpg">
+            <source media="(max-width: 1023px)" srcset="images/flower-rectangle.jpg">
+            <source media="(min-width: 1024px)" srcset="images/flower-large.jpg">
+            <img src="flower-large.jpg" alt="Blue, purple and pink hydrangea flower">
+        </picture>
+    </body>
+
+</html>

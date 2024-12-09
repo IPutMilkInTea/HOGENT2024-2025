@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Card with Badges</title>
+    <link rel="stylesheet" href="./css/main.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Creating a card with badges</h1>
+        </header>
+        <main>
+            <p>You can create a list of badges using both <code>display: flex</code> and
+                <code>display: inline-block</code> in HTML and CSS. Each method has its advantages, depending
+                on the level of flexibility and control you need.
+            </p>
+            <ul>
+                <li>
+                    <p><strong>Flexbox</strong> provides more control over the layout, making it easier to center,
+                        space, or
+                        align badges both horizontally and vertically. It's also more responsive by default, handling
+                        different
+                        screen sizes better.</p>
+                </li>
+                <li>
+                    <p><strong>Inline block</strong> is a simpler approach and can work well for static,
+                        horizontal layouts. Badges will wrap automatically if there's not enough space, but controlling
+                        spacing,
+                        alignment, and responsiveness might require more manual adjustments.</p>
+                </li>
+            </ul>
+            <p>Both methods are acceptable, so your choice depends on your design needs and whether you want more
+                control or
+                simplicity.</p>
+
+            <div class="profile-card">
+                <div class="card-title">John Doe</div>
+                <div class="badges">
+                    <span>HTML</span>
+                    <span>CSS</span>
+                    <span>JavaScript</span>
+                    <span>React</span>
+                    <span>Node.js</span>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+* {
+  box-sizing: border-box;
+}
+
+.grid-container {
+  background-color: lightgrey;
+  margin: 2rem 0;
+}
+.grid-container > p {
+  border: 1px solid #000;
+  background-color: orange;
+  padding: 1em;
+}
+
+/* Plaats je oplossing hieronder */
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  /* we hoeven de rijen niet explciet te definiëren */
+}
+
+p {
+  margin: 0;
+}
+
+#grid1 {
+  justify-items: start;
+  align-items: center;
+}
+
+#grid2 {
+  justify-items: end;
+}
+
+#grid2 > p:last-of-type {  
+  justify-self: start;
+  align-self: center;
+}

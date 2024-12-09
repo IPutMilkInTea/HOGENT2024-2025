@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Slider kleur</title>
+    <link rel="stylesheet" href="css/main.css" />
+  </head>
+
+  <body>
+    <h1>Favoriete kleur - getal. Score.</h1>
+    <form
+      action="mailto:naam@server.com?subject=Favorietjes"
+      method="post"
+      enctype="text/plain"
+    >
+      <div>
+        <label
+          >Kies je favoriete kleur:
+          <input type="color" name="kleur" value="#ff0000" />
+        </label>
+      </div>
+      <div>
+        <label
+          >Kies je favoriete getal:
+          <input type="number" name="getal" value="13" min="0" required />
+        </label>
+      </div>
+      <div>
+        <label
+          >Geef een score voor Web Development I:
+          <input
+            id="score"
+            type="range"
+            min="0"
+            max="20"
+            value="15"
+            step="1"
+            name="score"
+          />
+          <output id="showScore"></output>
+        </label>
+      </div>
+      <div>
+        <input type="submit" value="Verstuur" />
+      </div>
+    </form>
+    <script src="js/slider.js"></script>
+  </body>
+</html>

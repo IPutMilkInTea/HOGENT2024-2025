@@ -1,0 +1,44 @@
+/* Basic styling */
+div {
+  box-sizing: border-box;
+}
+body {
+  font-family: Calibri, "Trebuchet MS", sans-serif;
+}
+
+/* Some default styles to make each box visible */
+div > div {
+  color: white;
+  font-size: 5em;
+  text-align: center;
+  padding: 10px;
+  width: 10rem;
+}
+
+/* de flexcontainer */
+h1 + div {
+  border: 2px solid black;
+  display: block flex;
+  width: 35rem;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  height: 50vh;
+  align-content: flex-end; /* default value */
+}
+
+/* Flex items */
+div > div:nth-child(1) {
+  background-color: darkorange;
+}
+div > div:nth-child(2) {
+  background-color: green;
+}
+div > div:nth-child(3) {
+  background-color: blue;
+}
+div > div:nth-child(4) {
+  background-color: red;
+}
+div > div:nth-child(5) {
+  background-color: darkmagenta;
+}

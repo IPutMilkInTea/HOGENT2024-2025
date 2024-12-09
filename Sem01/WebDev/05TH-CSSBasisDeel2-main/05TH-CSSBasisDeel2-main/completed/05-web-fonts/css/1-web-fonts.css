@@ -1,0 +1,9 @@
+@font-face {
+  font-family: 'my font';
+  src: url(../fonts/AlexBrush-Regular.ttf);
+}
+
+h1,
+h2 {
+  font-family: 'my font', cursive;
+}

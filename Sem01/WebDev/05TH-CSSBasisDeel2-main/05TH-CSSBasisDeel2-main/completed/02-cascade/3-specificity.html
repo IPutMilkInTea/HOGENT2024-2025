@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Specificity</title>
+  <style>
+    /* specificity: 0,0,0 */
+    * {color: green;}
+
+    /* specificity: 0,0,1 */
+    li {color: aqua;}
+
+    /* specificity: 0,0,2 */
+    ul>li {color: orange;}
+
+    /* specificity: 0,1,1 */
+    li.red {color: red;}
+
+    /* specificity: 1,0,0 */
+    #content {color: blue;}
+  </style>
+</head>
+
+<body>
+  <h1>Specificity</h1>
+  <ul>
+    <li>Item One</li>
+    <li id="content" class="red">
+      Item Two
+      <ol>
+        <li class="red">2.1</li>
+        <li>2.2</li>
+      </ol>
+    </li>
+  </ul>
+</body>
+
+</html>

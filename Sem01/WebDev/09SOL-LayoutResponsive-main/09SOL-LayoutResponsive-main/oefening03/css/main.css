@@ -1,0 +1,104 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 1em;
+}
+
+h1 {
+  font-size: 4em;
+  font-weight: 900;
+  margin: 0.3em 0;
+  text-transform: uppercase;
+}
+
+h2 {
+  font-weight: 700;
+  margin: 1em 0;
+}
+
+h3 {
+  color: rgb(17, 17, 17);
+  font-weight: 500;
+  margin: 0.5em 0;
+}
+
+/* Layout foto's */
+/*****************/
+
+.fotos {
+  display: block flex;
+  flex-wrap: wrap;
+}
+
+.fotos>* {
+  padding: 0.6em;
+  flex: 1 0 33%;
+}
+
+.fotos img {
+  width: 100%;
+}
+
+/* Opmaak footer */
+/* ***************/
+
+footer {
+  margin-top: 0.3em;
+  padding: 0.6em;
+}
+
+footer nav h3+ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  line-height: 1.7em;
+}
+
+footer nav li a {
+  color: rgb(117, 117, 117);
+  text-decoration: none;
+}
+
+/* Flex lay-out nav in footer */
+/* ************************* */
+
+footer nav {
+  display: block flex;
+  justify-content: space-between;
+}
+
+footer nav div {
+  flex: 1 0 0;
+}
+
+footer nav div ul {
+  display: block flex;
+  flex-direction: column;
+}
+
+.box4 {
+  text-align: right;
+}
+
+.box2,
+.box3 {
+  display: none;
+}
+
+/* OPLOSSING */
+@media screen and (min-width:720px) {
+  .box2 {
+    display: block;
+    text-align: center;
+  }
+}
+
+@media screen and (min-width:1024px) {
+  .fotos>* {
+    flex-basis: 25%;
+  }
+
+  .box3 {
+    display: block;
+    text-align: center;
+  }
+}

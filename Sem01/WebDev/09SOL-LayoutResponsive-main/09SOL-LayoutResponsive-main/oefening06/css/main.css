@@ -1,0 +1,101 @@
+body {
+  font-size: 1.2em;
+  line-height: 1.5;
+  font-family: sans-serif;
+}
+
+/* Page Layout: body, nav en main */
+
+body {
+  margin: 0;
+}
+
+nav {
+  background-color: #343a40;
+  color: #cccccc;
+  padding: 14px;
+}
+
+main {
+  padding-left: 14px;
+  padding-right: 14px;
+}
+
+/* in desktop view beperken we de breedte van het main-element
+  tot 640px en centreren we het main-element tussen de marges */
+main {
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Navigation menu */
+
+nav a {
+  text-decoration: none;
+  color: #9a9a9a;
+}
+nav a:hover {
+  text-decoration: underline;
+}
+nav a.active {
+  color: white;
+}
+
+nav a.active:hover {
+  text-decoration: none;
+}
+
+nav ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+nav a {
+  display: block;
+  padding: 3px 16px;
+}
+
+/* HAMBURGER MENU */
+
+/* muisaanwijzer instellen */
+nav img#hamburger-icon {
+  cursor: pointer;
+}
+
+/* default verbergen we het menu */
+nav ul {
+  display: none;
+}
+
+/* als de checkbox checked is geven we het menu
+terug weer */
+nav #menu-checkbox:checked ~ ul {
+  display: block;
+}
+
+/* checkbox moet niet zichtbaar zijn */
+nav #menu-checkbox {
+  display: none;
+}
+
+/* we plaatsen een 'break point" bij 576px */
+@media screen and (min-width: 576px) {
+  /* in desktop view is het horizontaal menu altijd zichtbaar */
+  nav ul {
+    display: block;
+  }
+
+  /* in desktop view plaatsen we de menu-items naast elkaar
+  en passen de witruimte aan */
+  nav li {
+    display: inline-block;
+    padding: 0 7px;
+  }
+
+  /* in desktop view verbergen we het label dat het hamburger-icon bevat */
+  nav label[for='menu-checkbox'] {
+    display: none;
+  }
+}

@@ -1,0 +1,40 @@
+body {
+    font-family: monospace;
+    font-size: 1.4em;
+}
+
+/*Table*/
+
+table {
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid black;
+    padding: 3px 10px;
+}
+
+table td:first-of-type {
+    inline-size: 150px;
+}
+
+table td:last-of-type {
+    inline-size: 300px;
+}
+
+table tr:first-child {
+    color: white;
+    background-color: black;
+}
+
+table tr:nth-child(2) {
+    background-color: lightgreen;
+}
+
+table tr:nth-child(3) {
+    background-color: lightyellow;
+}
+
+table tr:last-child {
+    background-color: lightgray;
+}

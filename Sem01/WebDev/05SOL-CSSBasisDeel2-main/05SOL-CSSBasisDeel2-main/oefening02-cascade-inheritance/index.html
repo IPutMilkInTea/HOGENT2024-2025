@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS cascade and inheritance</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <header>
+    <h1>Oefening 2: cascade and inheritance</h1>
+  </header>
+  <main>
+    <h2>H2 in main element</h2>
+    <section>
+      <article>
+        Dit is de tekst in het eerste article van de section in de main blok.
+        <a href="#">Klik 2</a>
+        <p>
+          Een eerste paragraaf in een <em>article</em> binnen de eerste
+          section van het main element. Lorem ipsum dolor sit amet consectetur
+          adipisicing elit. Recusandae, sunt maiores. Id quaerat ratione vitae
+          quis beatae nulla quod consequuntur sequi impedit, ducimus sapiente
+          facilis ad inventore quisquam adipisci perspiciatis.
+        </p>
+        <p><a href="#">Klik 3</a></p>
+      </article>
+      <article>
+        <p>
+          Een tweede paragraaf in een <em>article</em> binnen de eerste
+          section van het main element. Lorem ipsum dolor sit amet consectetur
+          adipisicing elit. Recusandae, sunt maiores. Id quaerat ratione vitae
+          quis beatae nulla quod consequuntur sequi impedit, ducimus sapiente
+          facilis ad inventore quisquam adipisci perspiciatis.
+        </p>
+        <ul>
+          <li>item 1</li>
+          <li>
+            <ul>
+              <li class="red">nest 1</li>
+              <li>nest 2</li>
+              <li>nest 3</li>
+            </ul>
+          </li>
+          <li>item 3</li>
+          <li>item 4</li>
+        </ul>
+      </article>
+    </section>
+    <aside>
+      <nav>
+        <ul>
+          <li><a href="#">navitem 1</a></li>
+          <li><a href="#">navitem 2</a></li>
+          <li><a href="#">navitem 3</a></li>
+          <li><a href="#">navitem 4</a></li>
+        </ul>
+      </nav>
+      <p>Dit is helemaal naast de kwestie!!</p>
+      <p>
+        Eigenlijk is dat wel plezant zo websites maken met HTML en CSS. Naar
+        het schijnt zal het nog veel plezanter worden als we met layout
+        beginnen.
+      </p>
+    </aside>
+  </main>
+  <footer>
+    <p>
+      Die footers beginnen zo stilaan mijn voeten uit te hangen. Heb je hem?
+      Footer - voeten...
+    </p>
+    <p><small>&copy; Hogeschool Gent.</small></p>
+  </footer>
+</body>
+
+</html>

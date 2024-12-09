@@ -1,0 +1,25 @@
+/* De boxes opmaken */
+/* **************** */
+* {
+  box-sizing: border-box;
+}
+
+.grid-container {
+  background-color: cyan;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.grid-container div {
+  border: 1px solid black;
+  background-color: white;
+  border-radius: 5px;
+  padding: 1em;
+}
+
+/* CSS Grid Layout */
+/*******************/
+
+
+
+

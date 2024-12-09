@@ -1,0 +1,15 @@
+/* OPLOSSING */
+/* Webpagina 'over_ons.html' */
+/* ************************* */
+
+/* aside op 'over_ons.html' rechts van section plaatsen */
+main {
+  display: grid;
+  padding-right: 20px;
+  grid-template-columns: 1fr min-content;
+  gap: 10px;
+}
+main aside {
+  border-left: 1px grey solid;
+  padding: 0 7px;
+}

@@ -1,0 +1,83 @@
+/* 
+Vul de CSS-file verder aan. Het is bij deze oefening
+niet de bedoeling dat je wijzigingen aanbrengt aan de HTML-code
+Hou onder andere rekening met onderstaande richtlijnen:
+  - Let op de tekstuitlijning van de tabelcellen.
+  - Volgende kleuren en tekststylen worden gebruikt:
+      tabel
+        tekskleur: #4a4a4d
+      heading table
+        achtergrondkleur: #395870
+        tekstkleur: white
+        lettergrootte: 11 pixels
+      achtergrond (gewone) even rijen en laatste rij:  
+        tekstkleur: #f0f0f2;
+      item-kolomwaarden
+        titel en auteur - tekstkleur #395870;
+        rest - tekstkleur: #7c7c80, lettergrootte: 12 pixels
+      laatste rij:
+        tekstkleur: #395870; 
+        vet
+*/
+
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+}
+
+table {
+  border-collapse: collapse;
+  color: #4a4a4d;
+}
+
+th, td {
+  border: 1px solid #cecfd5;
+  padding: 10px 15px;
+}
+
+thead {
+  background: #395870;
+  color: #fff;
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+tbody tr:nth-child(even) {
+  background: #f0f0f2;
+}
+
+table strong {
+  color: #395870;
+}
+
+table span {
+  color: #7c7c80;
+  font-size: 12px;
+}
+
+th:first-child {
+  text-align: left;
+}
+
+th:last-child {
+  text-align: right;
+}
+
+td:last-child {
+  text-align: right;
+}
+
+tbody td:nth-child(2),
+tbody td:nth-child(3) {
+  text-align: center;
+}
+
+tfoot td {
+  text-align: right;
+}
+
+tfoot tr:last-child {
+  background: #f0f0f2;
+  color: #395870;
+  font-weight: bold;
+}

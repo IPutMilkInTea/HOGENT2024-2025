@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOL.COM Registratie</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+    <header>
+        <h1>Nieuw bij bol.com</h1>
+        <p>Ben je een zakelijke klant?
+            Maak dan een hieronder zakelijk account aan, met extra voordelen voor zakelijke klanten.
+        </p>
+    </header>
+    <hr>
+    <main>
+        <h2>Accountgegevens</h2>
+        <form method="post">
+            <fieldset>
+                <legend>Persoonlijke gegevens</legend>
+                <div>Aanhef
+                    <sup>*</sup>
+                    <input type="radio" name="aanhef" id="mevr" value="Mevrouw" checked required />
+                    <label for="mevr">Mevrouw</label>
+                    <input type="radio" name="aanhef" id="heer" value="De heer" required />
+                    <label for="heer">De heer</label>
+                </div>
+                <div>
+                    <label for="voornaam">Voornaam
+                        <sup>*</sup>
+                    </label>
+                    <input type="text" name="voornaam" id="voornaam" required />
+
+                    <label for="achternaam">Achternaam
+                        <sup>*</sup>
+                    </label>
+                    <input type="text" name="achternaam" id="achternaam" required />
+                </div>
+                <div>
+                    <label for="bedrijfsnaam">Bedrijfsnaam</label>
+                    <input type="text" name="bedrijfsnaam" id="bedrijfsnaam" />
+                </div>
+                <div>
+                    <label for="postcode_gemeente">Postcode en Gemeente
+                        <sup>*</sup>
+                    </label>
+                    <input type="text" name="postcode_gemeente" id="postcode_gemeente" required />
+                </div>
+                <div>
+                    <label for="straatnaam">Straatnaam
+                        <sup>*</sup>
+                    </label>
+                    <input type="text" id="straatnaam" name="straatnaam" required />
+                    <label for="huisnummer_bus">Huisnummer en bus
+                        <sup>*</sup>
+                    </label>
+                    <input type="text" name="huisnummer_bus" id="huisnummer_bus" required />
+                </div>
+                <div>
+                    <label for="land">Land
+                        <sup>*</sup>
+                    </label>
+                    <select name="land" id="land" required>
+                        <option value="">--Maak een keuze--</option>
+                        <option value="be">België</option>
+                        <option value="nl">Nederland</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="extra_adres">Extra adresregel (optioneel)</label>
+                    <input type="text" name="extra_adres" id="extra_adres" />
+                </div>
+                <div>
+                    <label for="geboortedatum">Geboortedatum (optioneel)</label>
+                    <input type="date" name="geboortedatum" id="geboortedatum" />
+                </div>
+                <div>
+                    <label for="telefoonnummer">Telefoonnummer
+                        <sup>*</sup>
+                    </label>
+                    <input type="tel" name="telefoonnummer" id="telefoonnummer" required />
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Inloggegevens</legend>
+                <div>
+                    <label for="email">E-mailadres
+                        <sup>*</sup>
+                    </label>
+                    <input type="email" name="email" id="email" placeholder="naam@provider.com" required />
+                </div>
+                <div>
+                    <label for="wachtwoord">Wachtwoord
+                        <sup>*</sup>
+                    </label>
+                    <input type="password" name="wachtwoord" id="wachtwoord" required />
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Blijf op de hoogte</legend>
+                <table>
+                    <tr>
+                        <th>Nieuwsbrief</th>
+                        <th>Blijf per e-mail op de hoogte van:</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="nieuwsbrief" id="nieuwsbrief" value="nieuwsbrief_aankoop"
+                                checked>
+                            <label for="nieuwsbrief">Informatie rondom je aankoop</label>
+                        </td>
+                        <td>Reviewverzoeken, artikelsuggesties en informatie over onze artikelen en –diensten op basis
+                            van
+                            je eerdere aankopen.</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>
+                                <input type="checkbox" name="nieuwsbrief" value="nieuwsbrief_acties" checked>
+                                Persoonlijke aanbevelingen en acties</label>
+                        </td>
+                        <td>Persoonlijke aanbevelingen en informatie op basis van je aankopen, -bezoekgeschiedenis en
+                            algemene
+                            (win)acties.</td>
+                    </tr>
+                </table>
+            </fieldset>
+            <div><input type="submit" value="Verzenden"></div>
+        </form>
+    </main>
+</body>
+
+</html>

@@ -1,0 +1,11 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+ol {
+  list-style-type: upper-alpha;
+}
+
+ul {
+  list-style-type: none;
+}

@@ -1,0 +1,5 @@
+/* bevat enkel de opmaak voor grotere schermen */
+p {
+    background-color: chocolate;
+    color: lightyellow;
+}

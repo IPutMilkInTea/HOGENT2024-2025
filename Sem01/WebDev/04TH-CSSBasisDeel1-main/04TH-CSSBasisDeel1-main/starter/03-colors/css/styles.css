@@ -1,0 +1,7 @@
+body {
+  background-image: url(../images/bush.png);
+}
+
+article {
+  background-color: rgb(255 0 0 / 20%); /* 20% opacity */
+}

@@ -1,0 +1,62 @@
+body {
+  padding: 20px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+nav {
+  max-width: 960px;
+}
+nav ul {
+  border: 1px solid #000;
+
+  /* De property list-style wordt normaal ingesteld op de li-elementen,
+  maar omdat deze property overgeërfd wordt, kan ze ook ingesteld 
+  worden op het ul parent element. */
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+nav a {
+  text-decoration: none;
+  color: #000;
+  font-size: 1.2rem;
+  border: 2px solid rgb(96, 139, 168);
+  border-radius: 5px;
+  background-color: rgba(96, 139, 168, 0.2);
+  display: block;
+  padding: 10px;
+  margin: 10px;
+}
+
+/* Space distributed outside the items */
+/* *********************************** */
+#nav1 ul {
+  display: block flex;
+  justify-content: space-between;
+}
+
+/* Space distributed within the items */
+/* ********************************** */
+#nav2 ul {
+  display: block flex;
+}
+#nav2 li {
+  flex: auto; /* flex: 1 1 auto */
+}
+
+/* Space distributed within the items, equal width items */
+/* ***************************************************** */
+#nav3 ul {
+  display: block flex;
+}
+#nav3 li {
+  flex: 1; /* flex: 1 1 0; */
+}
+
+/* Split navigation */
+/* **************** */
+#nav4 ul {
+  display: block flex;
+}
+.push-right {
+  margin-inline-start: auto;
+}

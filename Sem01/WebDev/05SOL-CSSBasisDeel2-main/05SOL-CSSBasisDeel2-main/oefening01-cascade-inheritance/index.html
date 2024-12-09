@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS cascade and inheritance</title>
+  <style>
+    body {
+      font-size: 1.5em;
+    }
+
+    body>p {
+      background-color: red;
+      font-style: italic;
+    }
+
+    p {
+      background-color: green;
+      color: orange;
+    }
+
+    h1+p {
+      color: white;
+      font-style: normal;
+    }
+
+    /* Oplossing */
+    /* ********* */
+
+    /* p-element:
+      - font-size: 24px;        (inherited from <body> element; 16px * 1.5 => 24px)
+      - font-style: normal;     (Cascade: source order)
+      - color: white;           (Cascade: specificity)
+      - background-color : red; (Cascade: specificity)
+    */
+  </style>
+</head>
+
+<body>
+  <h1>CSS cascade and inheritance</h1>
+  <p>What is my font-size, font-style (am i italicized or not?), color and background-color?</p>
+</body>
+
+</html>

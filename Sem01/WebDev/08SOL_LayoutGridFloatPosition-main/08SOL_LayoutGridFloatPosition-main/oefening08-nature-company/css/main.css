@@ -1,0 +1,94 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.container {
+  /* Top Right Bottom Left */
+  padding: 24px 24px 30px 56px;
+}
+
+h1 {
+  font-size: 4.5em;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+h2 {
+  font-weight: normal;
+  margin-top: 56px;
+  margin-bottom: 30px;
+}
+
+h3 {
+  color: rgb(17, 17, 17);
+  font-weight: 500;
+}
+
+/* Layout foto's */
+/*****************/
+
+/* verwijderen margin, padding en bullets bij ul */
+.fotos {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+/* de drie foto's naast elkaar plaatsen */
+.fotos {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+}
+
+/* fotos responsive maken */
+.fotos img {
+  width: 100%;
+}
+
+/* Opmaak footer */
+/* ***************/
+
+footer {
+  margin-top: 84px;
+}
+
+footer nav h3 + ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  line-height: 2;
+}
+
+footer nav li a {
+  color: rgb(117, 117, 117);
+  text-decoration: none;
+}
+
+/* Grid Layout nav in footer */
+/* ************************* */
+
+footer nav {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 1fr 3rem 1fr 3rem 1fr 3rem 1fr minmax(
+      0,
+      1fr
+    );
+  grid-template-rows: auto auto;
+}
+
+.box1 {
+  grid-column: 2;
+}
+
+.box2 {
+  grid-column: 4;
+}
+
+.box3 {
+  grid-column: 6;
+}
+
+.box4 {
+  grid-column: 8;
+}
