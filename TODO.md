@@ -1,8 +1,4 @@
-# Planning
-
-oef 3, H4 van costing slide 11
-
-## TODO
+# TODO
 
 - Skillslab (extra oppertuniteit GROEN)
 - (extra oppertuniteit BLAUW)
