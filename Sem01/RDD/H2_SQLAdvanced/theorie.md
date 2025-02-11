@@ -1,12 +1,34 @@
-# H2 SQL Advanced
+# H2 SQL ADVANCED
+
+## **1. Subqueries:**
+
+**Purpose:** Use a query inside another query to filter, calculate, or return values dynamically.  
+**Types of Subqueries:**
+
+- **Single Value Subquery:** Returns one value.  
+- **Multiple Value Subquery:** Returns a list of values.  
+- **Correlated Subquery:** References outer query values and runs for each row.  
 
 ---
 
-## 1. **Subqueries in de `WHERE`- of `HAVING`-clausule**
+**Example 1: Subquery Returning a Single Value**  
+**Goal:** Find products that cost more than the average price.  
 
-### Subqueries met één waarde
+```sql
+SELECT ProductID, ProductName, UnitPrice
+FROM Products
+WHERE UnitPrice > (SELECT AVG(UnitPrice) FROM Products);
+```
 
-Om producten met de hoogste prijs te vinden, gebruiken we een subquery om eerst de maximale prijs te bepalen:
+**Explanation:**  
+
+- The subquery calculates the average product price.  
+- The outer query filters products costing more than that average.  
+
+---
+
+**Example 2: Subquery with MAX Value**  
+**Goal:** Find the most expensive product.
 
 ```sql
 SELECT ProductID, ProductName, UnitPrice
@@ -14,241 +36,228 @@ FROM Products
 WHERE UnitPrice = (SELECT MAX(UnitPrice) FROM Products);
 ```
 
-### Subqueries met meerdere kolommen
+**Explanation:**
 
-Om klanten op te halen die een bestelling hebben geplaatst, gebruiken we een subquery die alle unieke `CustomerID`s uit de `Orders`-tabel bevat:
+- The subquery fetches the highest price.  
+- The outer query displays products matching this price.  
+
+---
+
+## **2. Subquery Returning a List (IN/NOT IN):**  
+
+**Goal:** List employees who processed orders.  
 
 ```sql
-SELECT CustomerID, CompanyName
-FROM Customers
-WHERE CustomerID IN (SELECT DISTINCT CustomerID FROM Orders);
+SELECT FirstName, LastName
+FROM Employees
+WHERE EmployeeID IN (SELECT EmployeeID FROM Orders);
 ```
 
-### Gecorreleerde Subqueries
+**Explanation:**  
 
-Om werknemers te vinden die meer verdienen dan het gemiddelde salaris binnen hun afdeling, kan een gecorreleerde subquery helpen:
+- The subquery retrieves all employees with orders.  
+- The outer query lists matching employee records.  
+
+**Goal:** Find customers who have not placed any orders.  
 
 ```sql
-SELECT EmployeeID, LastName, Salary
-FROM Employees AS e1
-WHERE Salary > (SELECT AVG(Salary)
-                FROM Employees AS e2
-                WHERE e2.DepartmentID = e1.DepartmentID);
+SELECT * FROM Customers
+WHERE CustomerID NOT IN (SELECT CustomerID FROM Orders);
+```
+
+**Explanation:**  
+
+- `NOT IN` excludes customers present in the orders list.  
+
+---
+
+## **3. Correlated Subquery (Row-by-Row Execution):**
+
+**Goal:** Find employees earning more than the average salary of their department.  
+
+```sql
+SELECT FirstName, LastName, Salary
+FROM Employees e
+WHERE Salary > (SELECT AVG(Salary) FROM Employees WHERE ReportsTo = e.ReportsTo);
+```
+
+**Explanation:**  
+
+- The subquery dynamically recalculates average salaries per department.  
+- The outer query filters based on this value.  
+
+---
+
+## **4. EXISTS Operator (Check Existence):**  
+
+**Goal:** List customers with orders.  
+
+```sql
+SELECT * FROM Customers c
+WHERE EXISTS (SELECT * FROM Orders o WHERE o.CustomerID = c.CustomerID);
+```
+
+**Explanation:**  
+
+- The subquery checks if an order exists for each customer.  
+- `EXISTS` returns rows where the subquery finds matching records.  
+
+**Goal:** List customers without orders.  
+
+```sql
+SELECT * FROM Customers c
+WHERE NOT EXISTS (SELECT * FROM Orders o WHERE o.CustomerID = c.CustomerID);
 ```
 
 ---
 
-## 2. **`EXISTS` en `NOT EXISTS`-Operatoren**
+## **5. Data Manipulation (DML):**  
 
-### Gebruik van `EXISTS`
+**Goal:** Modify data using INSERT, UPDATE, DELETE, and MERGE commands.  
 
-Deze query haalt klanten op die minstens één bestelling hebben geplaatst:
+---
+
+**Example 1: INSERT Statement (Add Records):**  
+**Add a New Product:**  
 
 ```sql
-SELECT CustomerID, CompanyName
-FROM Customers AS c
-WHERE EXISTS (SELECT 1
-              FROM Orders AS o
-              WHERE o.CustomerID = c.CustomerID);
+INSERT INTO Products (ProductName, CategoryID, Discontinued)
+VALUES ('Chocolate Bar', 2, 0);
 ```
 
-### Gebruik van `NOT EXISTS`
+**Explanation:**  
 
-Om vervoerders te vinden die geen bestellingen hebben verzonden:
+- Inserts a new row into the `Products` table.  
+- Specify values for mandatory columns.  
+
+**Copy Data from Another Table:**  
 
 ```sql
-SELECT ShipperID, CompanyName
-FROM Shippers AS s
-WHERE NOT EXISTS (SELECT 1
-                  FROM Orders AS o
-                  WHERE o.ShipVia = s.ShipperID);
+INSERT INTO Customers (CustomerID, CompanyName)
+SELECT EmployeeID, FirstName + ' ' + LastName FROM Employees;
 ```
 
 ---
 
-## 3. **Views**
-
-### Een View Maken
-
-Hier is een view om producten op te sommen met een lage voorraad, inclusief leverancierinformatie:
+**Example 2: UPDATE Statement (Modify Records):**  
+**Goal:** Increase product prices by 10%.  
 
 ```sql
-CREATE VIEW vw_products_to_order AS
-SELECT ProductID, ProductName, SupplierID, UnitsInStock
+UPDATE Products
+SET UnitPrice = UnitPrice * 1.1;
+```
+
+**Goal:** Update prices only for products with 'Bröd' in their name.  
+
+```sql
+UPDATE Products
+SET UnitPrice = UnitPrice * 1.1
+WHERE ProductName LIKE '%Bröd%';
+```
+
+---
+
+**Example 3: DELETE Statement (Remove Records):**  
+**Goal:** Delete products named 'Bröd'.  
+
+```sql
+DELETE FROM Products
+WHERE ProductName LIKE '%Bröd%';
+```
+
+**Goal:** Delete orders from the most recent date.  
+
+```sql
+DELETE FROM OrderDetails
+WHERE OrderID IN (SELECT OrderID FROM Orders WHERE OrderDate = (SELECT MAX(OrderDate) FROM Orders));
+```
+
+---
+
+## **6. MERGE (Combine INSERT, UPDATE, DELETE):**  
+
+**Goal:** Synchronize `Shippers` table with an updated version.  
+
+```sql
+MERGE Shippers AS target
+USING ShippersUpdate AS source
+ON target.ShipperID = source.ShipperID
+
+WHEN MATCHED AND target.CompanyName <> source.CompanyName
+THEN UPDATE SET target.CompanyName = source.CompanyName
+
+WHEN NOT MATCHED BY target
+THEN INSERT (CompanyName, Phone) VALUES (source.CompanyName, source.Phone)
+
+WHEN NOT MATCHED BY source
+THEN DELETE;
+```
+
+**Explanation:**  
+
+- **Updates** records if they exist.  
+- **Inserts** new records if missing.  
+- **Deletes** rows not present in the source table.  
+
+---
+
+## **7. Views (Virtual Tables):**  
+
+**Goal:** Simplify complex queries and reuse SQL logic.  
+
+```sql
+CREATE VIEW V_ProductOrders AS
+SELECT p.ProductName, o.OrderDate
+FROM Products p
+JOIN OrderDetails od ON p.ProductID = od.ProductID
+JOIN Orders o ON od.OrderID = o.OrderID;
+```
+
+**Query the View:**  
+
+```sql
+SELECT * FROM V_ProductOrders;
+```
+
+---
+
+## **8. Common Table Expressions (CTE):**  
+
+**Goal:** Organize complex queries using temporary results.  
+
+**Example:**  
+**Goal:** Find products with minimum price per category.  
+
+```sql
+WITH CategoryMinPrice AS
+(SELECT CategoryID, MIN(UnitPrice) AS MinPrice
 FROM Products
-WHERE UnitsInStock < 20;
-```
+GROUP BY CategoryID)
 
-### Een View Bijwerken
-
-Met `CREATE OR ALTER VIEW` kunnen we een bestaande view wijzigen:
-
-```sql
-CREATE OR ALTER VIEW vw_products_to_order AS
-SELECT ProductID, ProductName, SupplierID, UnitsInStock
-FROM Products
-WHERE UnitsInStock < 15;
-```
-
-### Een View Gebruiken in Queries
-
-Je kunt de view opvragen alsof het een gewone tabel is:
-
-```sql
-SELECT ProductID, ProductName
-FROM vw_products_to_order
-WHERE SupplierID = 5;
+SELECT p.ProductID, p.ProductName
+FROM Products p
+JOIN CategoryMinPrice c ON p.CategoryID = c.CategoryID AND p.UnitPrice = c.MinPrice;
 ```
 
 ---
 
-## 4. **Praktische Toepassingen**
+## **9. Recursive CTE (Hierarchical Data):**  
 
-### Lopende Totalen
-
-Een gecorreleerde subquery kan cumulatieve totalen berekenen. Hier is een voorbeeld voor cumulatieve vrachtkosten per jaar:
+**Goal:** Generate numbers from 1 to 5.
 
 ```sql
-SELECT OrderID, OrderDate, Freight,
-       (SELECT SUM(Freight)
-        FROM Orders AS o2
-        WHERE YEAR(o2.OrderDate) = YEAR(o1.OrderDate)
-          AND o2.OrderID <= o1.OrderID) AS CumulativeFreight
-FROM Orders AS o1
-ORDER BY OrderDate;
-```
-
-### Complexe Filters met Views
-
-Met views kunnen complexe filterlogica worden gecentraliseerd. Bijvoorbeeld een view maken om producten met namen die "Bröd" of "Biscuit" bevatten te volgen:
-
-```sql
-CREATE VIEW vw_price_increasing_products AS
-SELECT ProductID, ProductName, UnitPrice
-FROM Products
-WHERE ProductName LIKE '%Bröd%' OR ProductName LIKE '%Biscuit%';
+WITH Numbers AS
+(SELECT 1 AS number
+UNION ALL
+SELECT number + 1 FROM Numbers WHERE number < 5)
+SELECT * FROM Numbers;
 ```
 
 ---
 
-## 5. **Common Table Expressions (CTEs)**
+## **10. Exercises (Try It Yourself):**
 
-### Basale CTEs
-
-CTEs kunnen queries vereenvoudigen, bijvoorbeeld om de minimale prijs per categorie te vinden:
-
-```sql
-WITH MinPricePerCategory AS (
-    SELECT CategoryID, MIN(UnitPrice) AS MinPrice
-    FROM Products
-    GROUP BY CategoryID
-)
-SELECT p.ProductID, p.ProductName, p.UnitPrice, c.MinPrice
-FROM Products AS p
-JOIN MinPricePerCategory AS c
-ON p.CategoryID = c.CategoryID
-WHERE p.UnitPrice = c.MinPrice;
-```
-
-### Recursieve CTEs
-
-Recursieve CTEs helpen om hiërarchische data door te lopen. Bijvoorbeeld om een lijst van getallen van 1 tot 10 te genereren:
-
-```sql
-WITH Numbers AS (
-    SELECT 1 AS Num
-    UNION ALL
-    SELECT Num + 1
-    FROM Numbers
-    WHERE Num < 10
-)
-SELECT Num FROM Numbers;
-```
-
-### Hiërarchische Data (Medewerkershiërarchie)
-
-Om alle medewerkers te vinden die rapporteren aan een specifieke manager:
-
-```sql
-WITH EmployeeHierarchy AS (
-    SELECT EmployeeID, ReportsTo
-    FROM Employees
-    WHERE EmployeeID = 1  -- Startpunt, bijvoorbeeld manager Andrew Fuller
-    UNION ALL
-    SELECT e.EmployeeID, e.ReportsTo
-    FROM Employees AS e
-    JOIN EmployeeHierarchy AS eh
-    ON e.ReportsTo = eh.EmployeeID
-)
-SELECT * FROM EmployeeHierarchy;
-```
-
----
-
-## 6. **Vergelijking van CTEs, Views en Subqueries**
-
-### Een View vs. CTE
-
-Views zijn persistent en kunnen opnieuw gebruikt worden, terwijl CTEs tijdelijk zijn binnen één query:
-
-```sql
-CREATE VIEW vw_avg_price_per_category AS
-SELECT CategoryID, AVG(UnitPrice) AS AvgPrice
-FROM Products
-GROUP BY CategoryID;
-```
-
-Gebruik van een CTE voor tijdelijke resultaten binnen één query:
-
-```sql
-WITH AvgPricePerCategory AS (
-    SELECT CategoryID, AVG(UnitPrice) AS AvgPrice
-    FROM Products
-    GROUP BY CategoryID
-)
-SELECT p.ProductID, p.ProductName, p.UnitPrice
-FROM Products AS p
-JOIN AvgPricePerCategory AS apc
-ON p.CategoryID = apc.CategoryID
-WHERE p.UnitPrice > apc.AvgPrice;
-```
-
----
-
-## 7. **Aanvullende Voorbeelden en Oefeningen**
-
-### Filteren van Producten op Specifieke Criteria
-
-Om producten met de laagste of gemiddelde prijzen per categorie te tonen:
-
-```sql
-WITH ProductStats AS (
-    SELECT CategoryID, MIN(UnitPrice) AS MinPrice, AVG(UnitPrice) AS AvgPrice
-    FROM Products
-    GROUP BY CategoryID
-)
-SELECT p.ProductID, p.ProductName, p.UnitPrice, ps.MinPrice, ps.AvgPrice
-FROM Products AS p
-JOIN ProductStats AS ps
-ON p.CategoryID = ps.CategoryID
-WHERE p.UnitPrice = ps.MinPrice OR p.UnitPrice = ps.AvgPrice;
-```
-
-### Statistieken van Verwerkte Orders per Werknemer
-
-Bereken het gemiddelde aantal orders per werknemer:
-
-```sql
-WITH OrderCounts AS (
-    SELECT EmployeeID, COUNT(OrderID) AS OrderCount
-    FROM Orders
-    GROUP BY EmployeeID
-)
-SELECT e.EmployeeID, e.LastName, oc.OrderCount,
-       (SELECT AVG(OrderCount) FROM OrderCounts) AS AvgOrderCount
-FROM Employees AS e
-LEFT JOIN OrderCounts AS oc
-ON e.EmployeeID = oc.EmployeeID;
-```
-
----
+1. Find employees who processed the most orders.  
+2. List customers from the same country as "Maison Dewey".  
+3. Display orders where the shipping address differs from the customer address.  
+4. Calculate the difference between product price and average price per category.  

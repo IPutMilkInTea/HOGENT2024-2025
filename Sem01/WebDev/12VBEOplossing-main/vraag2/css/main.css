@@ -1,0 +1,59 @@
+body {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+h1 {
+  font-family: 'Kablammo', sans-serif;
+  text-align: center;
+  color: green;
+  opacity: 0;
+  animation-name: make-visible;
+  animation-duration: 5s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes make-visible {
+  100% {
+    opacity: 1;
+  }
+}
+
+.grid {
+  display: grid;
+  gap: 5px;
+  width: 95%;
+  margin: 0 auto;
+}
+
+.grid div {
+  border: 2px dotted green;
+}
+
+.grid div p, .grid div h2 {
+  margin: 0;
+  padding: 10px;
+  text-align: center;
+}
+
+.grid div h2 {
+  font-style: italic;
+  background-color: grey;
+  color: white;
+}
+
+@media screen and (min-width: 600px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .grid div {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

@@ -1,0 +1,150 @@
+/* Algemene opmaak */
+html {
+    box-sizing: border-box;
+}
+
+*, ::before, ::after {
+    box-sizing: inherit;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.7;
+}
+
+h1 {
+    font-size: 3rem;
+    text-transform: uppercase;
+    text-align: center;
+    border-bottom: 1px solid #000;
+}
+
+main {
+    display: grid;
+    grid-template-columns: minmax(800px, 1fr);
+    gap: 10px;
+    grid-template-areas:
+        "a"
+        "b";
+}
+
+@media screen and (min-width: 1100px) {
+    main {
+        grid-template-areas:
+            "a b";
+        grid-template-columns: 800px 1fr;
+    }
+}
+
+.image-row {
+    display: flex;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.image-row > div {
+    flex: 1 0 0;
+}
+
+section {
+    grid-area: a;
+}
+
+form {
+    grid-area: b;
+}
+
+img {
+    max-width: 100%;
+    border-radius: 50%;
+}
+
+/* Opmaak tabel */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+td, th {
+    padding: 5px;
+    border: 2px solid lightgrey;
+    text-align: center;
+}
+
+col {
+    width: 250px;
+}
+
+col:first-child {
+    background-color: lightskyblue;
+}
+
+caption {
+    font-size: 1.5rem;
+    color: grey;
+}
+
+thead {
+    color: white;
+    background-color: #96c21f;
+}
+
+tbody {
+    color: #000;
+}
+
+tbody > tr > td:hover {
+    animation-name: wiggle;
+    animation-duration: 1s;
+}
+
+tbody > tr:nth-child(1) > td:first-child,
+tbody > tr:nth-child(3) > td:first-child {
+    animation: none;
+}
+
+@keyframes wiggle {
+
+    0% {
+        transform: rotate(0);
+    }
+
+    15% {
+        transform: rotate(-15deg);
+    }
+
+    30% {
+        transform: rotate(10deg);
+    }
+
+    45% {
+        transform: rotate(-10deg);
+    }
+
+    60% {
+        transform: rotate(6deg);
+    }
+
+    75% {
+        transform: rotate(-4deg);
+    }
+
+}
+
+/* Opmaak formulier */
+select {
+    display: none;
+}
+
+#oosd2:checked + select, #web1:checked + select {
+    display: inline;
+}
+
+fieldset > div {
+    display: flex;
+    margin-block: 5px;
+}
+
+label {
+    width: 150px;
+}

@@ -1,0 +1,77 @@
+<form action="mailto:quinten.vandamme@student.hogent.be?subject=TestFormulier" method="get">
+	<fieldset>
+		<legend>Test Formulier</legend>
+		
+		<!-- Geef gewone tekst in -->
+		<label for="naam">Naam</label>
+		<input id="naam" name="naam" type="text" placeholder="Naam" required>
+		<br>
+		
+		<!-- Geef een email in -->
+		<label for="email">Email</label>
+		<input id="email" name="email" type="email" placeholder="Email" required>
+		<br>
+		
+		<!-- Geef een wachtwoord in -->
+		<label for="wachtwoord">Wachtwoord</label>
+		<input id="wachtwoord" name="wachtwoord" type="password" placeholder="Wachtwoord" required>
+		<br>
+		
+		<!-- Geef een cijfer in -->
+		<label for="aantal">Aantal</label>
+		<input id="aantal" name="aantal" type="number" placeholder="1" min="1" max="10">
+		<br>
+		
+		<!-- Geef een datum in -->
+		<label for="datum">Aantal</label>
+		<input id="datum" name="datum" type="date" required>
+		<br>
+		
+		<!-- Kies uit een slectie -->
+		<label for="selectie">selectie</label>
+		<select name="selectie" id="selectie">
+			<option value="item1">Item 1</option>
+			<option value="item2">Item 2</option>
+		</select>
+		<br>
+		
+		<!-- Kies of geef zelf een berzorger in -->
+		<label for="berzorger">Aantal</label>
+		<input list="berzorgers" id="bezorger">
+		<datalist id="berzorgers">
+			<option value="alice" name="alice">Alice</option>
+			<option value="bob" name="alice">Bob</option>
+		</datalist>	
+		<br>
+		
+		<!-- kies de volgende optie's -->	
+		<label for="checkbox1">checkbox1</label>
+		<input type="checkbox" name="checkbox1" id="checkbox1">	
+		<label for="checkbox2">checkbox2</label>
+		<input type="checkbox" name="checkbox2" id="checkbox2">	
+		<br>
+		
+		<!-- kies de volgende optie's -->	
+		<label for="radio1">radio1</label>
+		<input type="radio" name="radio-groep" id="radio1" value="radio1">
+		<label for="radio2">radio2</label>
+		<input type="radio" name="radio-groep" id="radio2" value="radio2">		
+		<br>
+		
+		<!-- Geef meerdere lijnen tekst in -->	
+		<label for="tekstarea">textarea</label>
+		<input type="textarea" id="tekstarea" value="tekst">
+		<br>
+	
+		<!-- Formulier controls -->		
+		<input type="submit" value="Dien formulier in"></input>
+		<input type="reset" value="Reset het formulier"></input>
+		<br>
+		
+		<!-- Of -->		
+		
+		<button type="submit">Dien formulier in</button>
+		<button type="reset">Reset het formulier</button>
+		<br>
+	</fieldset>
+</form>

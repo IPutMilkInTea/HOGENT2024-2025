@@ -1,37 +1,327 @@
-# H1 SQL Review
+# H1 SQL_REVIEW
 
-1. **Basisaggregaties**:
-   - **COUNT()**: Telt het aantal rijen, zoals het aantal producten of medewerkers.
-   - **SUM()**: Totaliseert de waarden in een numerieke kolom, zoals de voorraadhoeveelheden.
-   - **MIN() en MAX()**: Haalt de kleinste of grootste waarden op, bijvoorbeeld geboortedatums of productprijzen.
+## **1. Basic SELECT Statement:**
 
-2. **Voorwaardelijke Filtering met `WHERE`**:
-   - Filtert specifieke rijen op basis van voorwaarden, zoals het selecteren van medewerkers met een bepaalde functietitel (`Title = 'Sales Representative'`) of producten onder een bepaalde prijs.
+**Purpose:** Retrieve data from a table.  
+**Syntax:**
 
-3. **Datumfuncties**:
-   - **DATEDIFF**: Berekent het verschil tussen twee datums, zoals in het bepalen van hoe dicht medewerkers bij de pensioenleeftijd van 65 jaar zijn.
+```sql
+SELECT column1, column2 FROM table_name;
+```
 
-4. **Groeperen van Gegevens**:
-   - **GROUP BY**: Groepeert rijen met dezelfde waarden in gespecificeerde kolommen; bijvoorbeeld leveranciers groeperen per land of producten per categorie.
-   - **HAVING**: Filtert gegroepeerde rijen na aggregatie, zoals het tonen van alleen landen met meer dan één leverancier of leveranciers met minimaal vijf producten onder een bepaalde prijs.
+**Example:**
 
-5. **Sorteren van Gegevens**:
-   - **ORDER BY**: Rangschikt de uitvoer op basis van gespecificeerde kolommen, zoals het alfabetisch sorteren van landen of het ordenen van leveranciers op naam.
+```sql
+SELECT productname, unitprice FROM Products;
+```
 
-6. **Joins**:
-   - **INNER JOIN**: Combineert rijen uit verschillende tabellen waar er een overeenkomst is in gespecificeerde kolommen, zoals het koppelen van leveranciers en producten of producten en categorieën.
-   - **LEFT JOIN**: Neemt alle rijen uit de linker tabel op, ook als er geen overeenkomsten zijn in de rechter tabel. Dit werd gebruikt in de query die medewerkers toont met of zonder gekoppelde bestellingen.
+**Explanation:**  
+This query selects and displays the `productname` and `unitprice` columns from the `Products` table. If you want all columns, use:
 
-7. **Unieke Waarden**:
-   - **DISTINCT**: Verwijdert dubbele rijen in de resultaten, zoals bij het verzekeren dat elke leverancier die zuivelproducten levert slechts één keer wordt weergegeven.
+```sql
+SELECT * FROM Products;
+```
 
-8. **Kolom Aliassen**:
-   - Tijdelijke namen toekennen aan kolommen (`AS`) om de uitvoer duidelijker te maken, zoals het hernoemen van kolommen als 'Aantal producten' of 'Minimum UnitPrice'.
+This returns the entire table.
 
-9. **Complexe Aggregaties en Subtotalen**:
-   - Het tellen van unieke bestellingen per leverancier, het vinden van de minimale en maximale hoeveelheden per product, of het samenvatten van producten per categorie toont het gebruik van aggregaties op meerdere niveaus.
+---
 
-10. **Omgaan met NULL-waarden**:
-    - Omgaan met potentiële NULL-waarden in gegevens, zoals met `LEFT JOIN`, waarbij niet elke medewerker al bestellingen heeft, en alle medewerkers toch worden weergegeven.
+## **2. Filtering Data (WHERE Clause):**  
 
-Deze technieken zijn essentieel in SQL voor het uitvoeren van uitgebreide data-analyse, het samenvatten van gegevens en het opstellen van inzichten uit meerdere tabellen. Deze oefeningen demonstreren SQL-vaardigheden die breed toepasbaar zijn voor het uitvoeren van query's en rapportages in relationele databases.
+**Purpose:** Extract only rows that meet certain conditions.  
+**Syntax:**
+
+```sql
+SELECT column1, column2 FROM table_name WHERE condition;
+```
+
+**Example:**
+
+```sql
+SELECT productname, unitprice FROM Products WHERE unitprice > 50;
+```
+
+**Explanation:**  
+Only products with a unit price greater than 50 will be shown. You can filter by multiple conditions using `AND` or `OR`:
+
+```sql
+SELECT productname FROM Products WHERE unitprice > 50 AND categoryID = 2;
+```
+
+---
+
+## **3. Sorting Data (ORDER BY):**  
+
+**Purpose:** Sort query results in ascending (default) or descending order.  
+**Syntax:**
+
+```sql
+SELECT column1 FROM table_name ORDER BY column1 [ASC|DESC];
+```
+
+**Example:**
+
+```sql
+SELECT productname, unitprice FROM Products ORDER BY unitprice DESC;
+```
+
+**Explanation:**  
+The products are sorted by price from highest to lowest.
+
+---
+
+## **4. Eliminate Duplicates (DISTINCT):**  
+
+**Purpose:** Show unique values only.  
+**Syntax:**
+
+```sql
+SELECT DISTINCT column1 FROM table_name;
+```
+
+**Example:**
+
+```sql
+SELECT DISTINCT supplierID FROM Products;
+```
+
+**Explanation:**  
+This displays each supplier only once, even if they supply multiple products.
+
+---
+
+## **5. Calculated Columns:**  
+
+**Purpose:** Perform calculations within the query.  
+**Syntax:**
+
+```sql
+SELECT column1, column2 * column3 AS new_column FROM table_name;
+```
+
+**Example:**
+
+```sql
+SELECT productname, unitprice * unitsinstock AS totalvalue FROM Products;
+```
+
+**Explanation:**  
+Calculates total inventory value for each product by multiplying the price by the number of units in stock.
+
+---
+
+## **6. Aliases (AS Keyword):**  
+
+**Purpose:** Rename columns or tables in output.  
+**Syntax:**
+
+```sql
+SELECT column1 AS new_name FROM table_name;
+```
+
+**Example:**
+
+```sql
+SELECT productname AS Product, unitprice AS Price FROM Products;
+```
+
+**Explanation:**  
+The output columns will appear as "Product" and "Price" instead of their original names.
+
+---
+
+## **7. Aggregation and Grouping (GROUP BY):**  
+
+**Purpose:** Group rows and apply aggregate functions.  
+**Functions:**  
+
+- **SUM()** – Total of column values.  
+- **AVG()** – Average value.  
+- **COUNT()** – Number of rows.  
+- **MIN() / MAX()** – Minimum or maximum value.  
+
+**Syntax:**
+
+```sql
+SELECT column1, COUNT(column2) FROM table_name GROUP BY column1;
+```
+
+**Example:**
+
+```sql
+SELECT categoryID, COUNT(productID) AS numberofproducts FROM Products GROUP BY categoryID;
+```
+
+**Explanation:**  
+Counts how many products exist in each category. The result groups rows by `categoryID`.
+
+---
+
+## **8. Filtering Groups (HAVING):**  
+
+**Purpose:** Filter grouped results (like WHERE but for groups).  
+**Syntax:**
+
+```sql
+SELECT column1, COUNT(column2) FROM table_name GROUP BY column1 HAVING COUNT(column2) > 5;
+```
+
+**Example:**
+
+```sql
+SELECT categoryID, COUNT(productID) AS numberofproducts FROM Products GROUP BY categoryID HAVING COUNT(productID) > 10;
+```
+
+**Explanation:**  
+Only categories with more than 10 products are displayed.
+
+---
+
+## **9. Joining Tables (JOIN):**  
+
+**Purpose:** Combine rows from multiple tables based on a related column.  
+**Types of Joins:**  
+
+- **INNER JOIN** – Matches rows in both tables.
+- **LEFT JOIN** – All rows from the left table, and matching rows from the right.  
+- **RIGHT JOIN** – All rows from the right table, and matching rows from the left.  
+
+**Example (INNER JOIN):**
+
+```sql
+SELECT Products.productname, Categories.categoryname 
+FROM Products
+INNER JOIN Categories
+ON Products.categoryID = Categories.categoryID;
+```
+
+**Explanation:**  
+This lists products along with their category names by matching `categoryID` in both tables.
+
+**LEFT JOIN Example:**
+
+```sql
+SELECT Employees.firstname, Orders.orderID
+FROM Employees
+LEFT JOIN Orders
+ON Employees.employeeID = Orders.employeeID;
+```
+
+**Explanation:**  
+Shows all employees, even those who haven’t placed orders.
+
+---
+
+## **10. Subqueries:**  
+
+**Purpose:** Use one query inside another.  
+**Example:**
+
+```sql
+SELECT productname FROM Products WHERE unitprice > (SELECT AVG(unitprice) FROM Products);
+```
+
+**Explanation:**  
+Selects products priced above the average price.
+
+---
+
+## **11. UNION (Combining Results):**  
+
+**Purpose:** Combine results of two queries.  
+**Syntax:**
+
+```sql
+SELECT column1 FROM table1
+UNION
+SELECT column1 FROM table2;
+```
+
+**Example:**
+
+```sql
+SELECT firstname FROM Employees
+UNION
+SELECT contactname FROM Customers;
+```
+
+**Explanation:**  
+Combines employee and customer names into a single list.
+
+---
+
+## **12. INTERSECT (Common Records):**  
+
+**Purpose:** Return rows common to both queries.  
+**Example:**
+
+```sql
+SELECT City FROM Customers
+INTERSECT
+SELECT City FROM Suppliers;
+```
+
+**Explanation:**  
+Lists cities where both customers and suppliers are located.
+
+---
+
+## **13. EXCEPT (Differences Between Results):**  
+
+**Purpose:** Return rows from the first query that are not in the second.  
+**Example:**
+
+```sql
+SELECT CustomerID FROM Customers
+EXCEPT
+SELECT CustomerID FROM Orders;
+```
+
+**Explanation:**  
+Shows customers who haven’t placed orders.
+
+---
+
+## **14. Handling NULL Values:**  
+
+**Purpose:** Deal with unknown or missing data.  
+**Example:**
+
+```sql
+SELECT companyname, region FROM Suppliers WHERE region IS NULL;
+```
+
+**Explanation:**  
+Lists suppliers with unknown regions.
+
+To replace NULL with a default value:
+
+```sql
+SELECT companyname, ISNULL(region, 'Unknown') FROM Suppliers;
+```
+
+---
+
+## **15. Exercises:**  
+
+Try these to practice:
+
+1. **Find all products with 'chocolate' in their name.**  
+
+```sql
+SELECT productname FROM Products WHERE productname LIKE '%chocolate%';
+```
+
+1. **Show the top 5 most expensive products.**  
+
+```sql
+SELECT productname, unitprice FROM Products ORDER BY unitprice DESC LIMIT 5;
+```
+
+1. **List suppliers who provide more than 3 products.**  
+
+```sql
+SELECT supplierID, COUNT(productID) AS totalproducts FROM Products GROUP BY supplierID HAVING COUNT(productID) > 3;
+```
+
+Would you like more complex queries or further examples on joins and subqueries?

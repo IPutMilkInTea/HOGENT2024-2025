@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vraag 1</title>
+  <link rel="stylesheet" href="./css/main.css">
+</head>
+
+<body>
+  <header>
+    <h1>Feedback EP3</h1>
+  </header>
+  <main>
+    <section>
+      <table>
+        <colgroup>
+          <col>
+          <col span="4">
+        </colgroup>
+        <thead>
+          <tr>
+            <th>OLOD</th>
+            <th>9:00-9:30</th>
+            <th>9:30-10:00</th>
+            <th>10:00-10:30</th>
+            <th>10:30-11:00</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td rowspan="2">OOSD II</td>
+            <td>Leen Vuyghe</td>
+            <td colspan="2">Stefaan Samyn</td>
+            <td>Leen Vuyghe</td>
+          </tr>
+          <tr>
+            <td colspan="2">Lotte Van Steenberghe</td>
+            <td colspan="2">Sharon Van Hove</td>
+          </tr>
+          <tr>
+            <td rowspan="2">Web Development I</td>
+            <td colspan="3">Stefaan De Cock</td>
+            <td>Patrick Lauwaerts</td>
+          </tr>
+          <tr>
+            <td colspan="2">Karine Samyn</td>
+            <td colspan="2">Chloë De Leenheer</td>
+          </tr>
+        </tbody>
+        <caption>Beschikbaarheid lectoren</caption>
+      </table>
+      <div class="image-row">
+        <div>
+          <img src="images/SS.jpg" alt="Stefaan Samyn">
+        </div>
+        <div>
+          <img src="images/KS.jpg" alt="Karine Samyn">
+        </div>
+        <div>
+          <img src="images/LV.jpg" alt="Leen Vuyghe">
+        </div>
+        <div>
+          <img src="images/PL.jpg" alt="Patrick Lauwaerts">
+        </div>
+        <div>
+          <img src="images/SDC.jpg" alt="Stefaan De Cock">
+        </div>
+        <div>
+          <img src="images/CDL.jpg" alt="Chloë De Leenheer">
+        </div>
+        <div>
+          <img src="images/LVS.jpg" alt="Lotte Van Steenberghe">
+        </div>
+        <div>
+          <img src="images/SVH.jpg" alt="Sharon Van Hove">
+        </div>
+      </div>
+    </section>
+    <form action="feedback.php" method="post">
+      <fieldset>
+        <legend>Maak je reservatie</legend>
+        <div>
+          <label for="naam">Naam:</label>
+          <input type="text" name="name" id="naam" placeholder="Naam en voornaam" required>
+        </div>
+        <div>
+          <label for="email">E-mail:</label>
+          <input type="email" name="name" id="email" placeholder="E-mail" required>
+        </div>
+        <div>
+          <label for="oosd2" class="cb">OOSD II:</label>
+          <input type="checkbox" name="oosd2" id="oosd2">
+          <select name="lectoroosd2">
+            <option value="SS">Stefaan Samyn</option>
+            <option value="HR">Lotte Van Steenberghe</option>
+            <option value="LV">Leen Vuyghe</option>
+            <option value="SVH">Sharon Van Hove</option>
+          </select>
+        </div>
+        <div>
+          <label for="web1" class="cb">Web Development I:</label>
+          <input type="checkbox" name="web1" id="web1">
+          <select name="lectorweb1">
+            <option value="SDC">Stefaan De Cock</option>
+            <option value="PL">Patrick Lauwaerts</option>
+            <option value="KS">Karine Samyn</option>
+            <option value="CDL">Chloë De Leenheer</option>
+          </select>
+        </div>
+        <div>
+          <input type="submit" value="Reserveer">
+        </div>
+      </fieldset>
+    </form>
+  </main>
+</body>
+
+</html>

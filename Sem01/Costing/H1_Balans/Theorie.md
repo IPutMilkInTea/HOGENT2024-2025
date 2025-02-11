@@ -93,6 +93,10 @@ In wat hiervoor kwam hebben we gezien hoe een balans is opgebouwd en hoe je zelf
 
 Bij het bekijken van een balans is het van belang om rekening te houden met twee nieuwe “knipperlichten”. Deze knipperlichten zijn vooral van belang bij het proberen uitkeren van winsten, maar het kan geen kwaad dat we deze ook toelichten samen met de impact ervan.
 
+### Sjabloon Balans
+
+![alt text](image.png)
+
 ### De liquiditeitstest
 
 De liquiditeitstest is een zeer courant gebruikt instrument om na te gaan of de dagelijkse activiteiten in een onderneming vlot verlopen. Deze test gaat na of een onderneming in staat is om alle verplichtingen aan de schuldeisers op korte termijn te voldoen met de huidige middelen. Het resultaat ervan is ook heel logisch: als een onderneming er niet in slaagt, dan loopt de werknemer, leverancier of kredietverstrekker het risico om niet te worden (terug-)betaald.
@@ -314,7 +318,7 @@ Here’s a detailed breakdown for each of the exercises provided.
 | 2. Ontvangst leningsbedrag              | Vreemd vermogen ↑              | VVKT ↑                          |
 | 3. Storten huurwaarborg voor extra loods| VLA ↑                          | VVKT ↑                          |
 | 4. Inbreng spaargeld vanuit privé       | VLA ↑                          | EV ↑                            |
-| 5. Betaling leverancier                  | Liquide middelen ↓             | VVKT ↓                          |
+| 5. Betaling leverancier                 | Liquide middelen ↓             | VVKT ↓                          |
 | 6. Klant betaalt openstaande factuur    | Liquide middelen ↑             | Openstaande vorderingen ↓       |
 | 7. Nettoloon personeelslid uitbetaald   | Liquide middelen ↓             | VVKT ↓                          |
 | 8. Cash geld uit kassa op bankrekening  | Liquide middelen ↓             | VVKT ↑                          |

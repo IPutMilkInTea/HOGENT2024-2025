@@ -1,143 +1,213 @@
-# H3 Window-functies in SQL
+# H3 WINDOW FUNCTIONS
 
-Window-functies maken het mogelijk om vergelijkingen en berekeningen te maken binnen specifieke delen van de dataset, zoals verkoopcijfers per jaar of per klant. Dit kan handig zijn voor bedrijfsanalyses waarbij bijvoorbeeld de huidige omzet wordt vergeleken met de vorige maand of het gemiddelde van de laatste drie maanden. Window-functies zijn efficiënter dan subquery's en maken gebruik van de `OVER`-clausule om de data op te delen.
+## **1. What Are Window Functions?**  
 
-## De `OVER`-clausule
+**Purpose:**  
 
-Met de `OVER`-clausule kunnen we een "venster" definiëren over een bepaalde dataset. Door een dataset op te delen in partities (`PARTITION BY`) en deze vervolgens te ordenen (`ORDER BY`), kunnen we bepaalde berekeningen per partitie uitvoeren. Bijvoorbeeld het berekenen van een lopende som of het bepalen van de rang binnen een partitie.
+- Window functions allow you to perform calculations across a set of rows related to the current row.  
+- Common use cases include running totals, moving averages, and ranking.  
+- Introduced in SQL:2003, they provide a simple and efficient way to perform aggregate-like operations without collapsing rows.  
+
+---
+
+## **2. Key Concept – OVER Clause:**
+
+**Syntax:**
 
 ```sql
--- Voorbeeld: Geef een overzicht van UnitsInStock per categorie en per product
-SELECT CategoryID, ProductID, UnitsInStock
-FROM Products
-ORDER BY CategoryID, ProductID;
+SELECT column, window_function() OVER (PARTITION BY column ORDER BY column) 
+FROM table;
 ```
 
-**Lopende som per categorie**  
-Hier berekenen we een cumulatieve som per `CategoryID` voor `UnitsInStock` door een venster te maken binnen elke categorie.
+- **`PARTITION BY`** – Divides the result set into partitions to apply calculations separately within each partition.  
+- **`ORDER BY`** – Determines the order of rows within each partition.  
+
+---
+
+## **3. Example – Running Total (Inefficient Approach):**  
+
+**Goal:** Calculate the running total of `UnitsInStock` by `CategoryID`.  
+**Inefficient (Correlated Subquery):**
 
 ```sql
 SELECT CategoryID, ProductID, UnitsInStock,
-       SUM(UnitsInStock) OVER (PARTITION BY CategoryID ORDER BY ProductID) AS TotalUnitsInStockPerCategory
+(SELECT SUM(UnitsInStock) 
+ FROM Products 
+ WHERE CategoryID = p.CategoryID  
+   AND ProductID <= p.ProductID) AS TotalUnitsInStockPerCategory
+FROM Products p
+ORDER BY CategoryID, ProductID;
+```
+
+**Explanation:**  
+
+- For each row, the subquery recalculates the sum. This leads to poor performance: **O(n²)** complexity.  
+
+---
+
+## **4. Efficient Approach – OVER Clause:**  
+
+```sql
+SELECT CategoryID, ProductID, UnitsInStock,
+SUM(UnitsInStock) OVER (PARTITION BY CategoryID ORDER BY ProductID) AS TotalUnitsInStockPerCategory
 FROM Products;
 ```
 
-In plaats van een subquery voor elke rij, gebruikt de `OVER`-clausule minder rekenkracht door de som slechts één keer per categorie te berekenen.
+**Explanation:**  
+
+- The sum is computed in one pass, significantly improving performance.  
 
 ---
 
-## Berekeningen over meerdere jaren
+## **5. ROWS vs RANGE in Window Functions:**  
 
-Window-functies zijn bijzonder nuttig bij tijdsafhankelijke data, zoals jaar-op-jaar vergelijkingen.
+- **`RANGE`** – Logical comparison of values based on the `ORDER BY` column.  
+- **`ROWS`** – Physical row-based offsets.  
+
+**Example:**
 
 ```sql
--- Geef het cumulatieve aantal bestellingen per klant voor elk jaar
-WITH cte AS (
-    SELECT CustomerID, YEAR(OrderDate) AS OrderYear, COUNT(OrderID) AS NumberOfOrders
-    FROM Orders
-    GROUP BY CustomerID, YEAR(OrderDate)
-)
-SELECT *,
-       SUM(NumberOfOrders) OVER (PARTITION BY CustomerID ORDER BY OrderYear) AS TotalOrders
-FROM cte;
+SELECT CategoryID, ProductID, UnitsInStock,
+SUM(UnitsInStock) OVER (PARTITION BY CategoryID ORDER BY ProductID ROWS BETWEEN 2 PRECEDING AND CURRENT ROW) 
+AS RollingSum
+FROM Products;
 ```
 
----
+**Explanation:**  
 
-## RANGE-opties binnen `OVER`
-
-De `RANGE`-optie geeft aan welke rijen in het venster moeten worden meegenomen voor de berekening. Dit kan bijvoorbeeld zijn:
-
-- **RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW**: Van het begin van de partitie tot de huidige rij.
-- **RANGE BETWEEN CURRENT ROW AND UNBOUNDED FOLLOWING**: Van de huidige rij tot het einde van de partitie.
+- This calculates a rolling sum for the current row and the two preceding rows.  
 
 ---
 
-## ROWS-opties
+## **6. ROW_NUMBER, RANK, DENSE_RANK:**
 
-Soms wil je niet werken met een logische `RANGE`, maar juist een fysieke offset van rijen. `ROWS` kan worden gebruikt om specifieke aantallen rijen te betrekken in een berekening.
+**Goal:** Assign sequential numbers or ranks to rows.  
 
 ```sql
--- Voorbeeld: Gemiddeld salaris van de werknemer en de twee voorgaande werknemers
 SELECT EmployeeID, FirstName + ' ' + LastName AS FullName, Salary,
-       AVG(Salary) OVER (ORDER BY Salary DESC ROWS BETWEEN 2 PRECEDING AND CURRENT ROW) AS AvgSalary2Preceding
+ROW_NUMBER() OVER (ORDER BY Salary DESC) AS 'ROW_NUMBER',
+RANK() OVER (ORDER BY Salary DESC) AS 'RANK',
+DENSE_RANK() OVER (ORDER BY Salary DESC) AS 'DENSE_RANK'
 FROM Employees;
 ```
 
+**Explanation:**  
+
+- **`ROW_NUMBER()`** – Assigns unique sequential numbers (no ties).  
+- **`RANK()`** – Assigns the same rank to ties, skipping numbers.  
+- **`DENSE_RANK()`** – Assigns the same rank to ties without skipping numbers.  
+
 ---
 
-## Rangschikkingsfuncties
-
-Window-functies zoals `ROW_NUMBER()`, `RANK()`, `DENSE_RANK()` en `PERCENT_RANK()` kunnen worden gebruikt om rijen binnen een partitie te rangschikken.
-
-- **ROW_NUMBER()**: Geeft een opeenvolgend nummer aan elke rij binnen een partitie.
-- **RANK()**: Geeft dezelfde rang aan rijen met dezelfde waarde en slaat nummers over bij gelijkstand.
-- **DENSE_RANK()**: Geeft dezelfde rang aan rijen met dezelfde waarde, maar zonder hiaten.
-- **PERCENT_RANK()**: Geeft de relatieve positie van een rij binnen een partitie als een percentage van 0 tot 1.
+## **7. Partitioned Ranking (Per Group):**  
 
 ```sql
--- Voorbeeld: Geef elke werknemer een rang op basis van salaris
 SELECT EmployeeID, FirstName + ' ' + LastName AS FullName, Title, Salary,
-       ROW_NUMBER() OVER (ORDER BY Salary DESC) AS RowNumber,
-       RANK() OVER (ORDER BY Salary DESC) AS Rank,
-       DENSE_RANK() OVER (ORDER BY Salary DESC) AS DenseRank,
-       PERCENT_RANK() OVER (ORDER BY Salary DESC) AS PercentRank
+ROW_NUMBER() OVER (PARTITION BY Title ORDER BY Salary DESC) AS 'ROW_NUMBER'
 FROM Employees;
 ```
 
+**Explanation:**  
+
+- Ranks are calculated separately for each employee `Title` group.  
+
 ---
 
-## LAG en LEAD
+## **8. LAG and LEAD (Row Comparison):**  
 
-Met `LAG` en `LEAD` kun je waarden van de voorgaande of volgende rij binnen een partitie opvragen. Dit kan handig zijn voor berekeningen waarbij je de vorige of volgende rij moet vergelijken, bijvoorbeeld om verschillen tussen opeenvolgende jaren te berekenen.
+- **`LAG()`** – Retrieves data from the previous row.  
+- **`LEAD()`** – Retrieves data from the next row.  
+
+**Example (LAG – Previous Row Comparison):**  
 
 ```sql
--- Verschil in salaris tussen een werknemer en de vorige werknemer
 WITH cte AS (
-    SELECT EmployeeID, FirstName + ' ' + LastName AS FullName, Salary,
-           LAG(Salary) OVER (ORDER BY Salary DESC) AS PrecedingSalary
-    FROM Employees
+  SELECT EmployeeID, FirstName + ' ' + LastName AS FullName, Salary,
+  LAG(Salary) OVER (ORDER BY Salary DESC) AS PrecedingSalary
+  FROM Employees
 )
-SELECT *, Salary - PrecedingSalary AS SalaryDifference
+SELECT *, Salary - PrecedingSalary AS Difference
+FROM cte;
+```
+
+**Explanation:**  
+
+- This calculates the salary difference between the current employee and the one above them in descending order.  
+
+---
+
+**Example (LEAD – Next Row Comparison):**  
+
+```sql
+WITH cte AS (
+  SELECT EmployeeID, FirstName + ' ' + LastName AS FullName, Salary,
+  LEAD(Salary) OVER (ORDER BY Salary DESC) AS FollowingSalary
+  FROM Employees
+)
+SELECT *, Salary - FollowingSalary AS Difference
 FROM cte;
 ```
 
 ---
 
-## Oefeningen
+## **9. Exercises (Try It Yourself):**  
 
-1. **Maak een overzicht met een volgnummer per klant binnen elk land**:
-  
-   ```sql
-   SELECT country,
-          ROW_NUMBER() OVER (PARTITION BY country ORDER BY CompanyName) AS RowNum,
-          CompanyName
-   FROM customers
-   ORDER BY country;
-   ```
+**1. Sequential Numbering by Country (ROW_NUMBER):**
 
-2. **Jaar-op-jaar prestatie voor producten**:
-   Bereken de verkoop per jaar en vergelijk deze met het vorige jaar:
+```sql
+SELECT Country, CompanyName,
+ROW_NUMBER() OVER (PARTITION BY Country ORDER BY CompanyName) AS rownum
+FROM Customers;
+```
 
-   ```sql
-   WITH cte AS (
-       SELECT ProductID, YEAR(OrderDate) AS OrderYear, SUM(Quantity) AS AmountSoldPerYear
-       FROM Orders o JOIN OrderDetails od ON o.OrderID = od.OrderID
-       GROUP BY ProductID, YEAR(OrderDate)
-   )
-   SELECT ProductID, OrderYear, AmountSoldPerYear,
-          LAG(AmountSoldPerYear) OVER (PARTITION BY ProductID ORDER BY OrderYear) AS AmountSoldPreviousYear
-   FROM cte;
-   ```
+---
 
-3. **Beloningssysteem op basis van omzet per werknemer per jaar**:
+**2. Sales by Year and Previous Year (LAG):**  
 
-   ```sql
-   SELECT o.EmployeeID, YEAR(o.OrderDate) AS OrderYear, SUM(od.UnitPrice * od.Quantity) AS Revenue,
-          10000 / RANK() OVER (PARTITION BY YEAR(o.OrderDate) ORDER BY SUM(od.UnitPrice * od.Quantity) DESC) AS Bonus
-   FROM Orders o JOIN OrderDetails od ON o.OrderID = od.OrderID
-   GROUP BY o.EmployeeID, YEAR(o.OrderDate)
-   ORDER BY OrderYear, Revenue DESC;
-   ```
+```sql
+WITH sales AS (
+  SELECT ProductID, YEAR(OrderDate) AS Year, SUM(Quantity) AS TotalSold
+  FROM OrderDetails
+  GROUP BY ProductID, YEAR(OrderDate)
+),
+sales_lag AS (
+  SELECT ProductID, Year, TotalSold,
+  LAG(TotalSold) OVER (PARTITION BY ProductID ORDER BY Year) AS PreviousYear
+  FROM sales
+)
+SELECT *, (TotalSold - PreviousYear) AS YearOverYearGrowth
+FROM sales_lag;
+```
+
+---
+
+**3. Ranking Top Shippers (DENSE_RANK):**  
+
+```sql
+WITH cte AS (
+  SELECT ShipVia, COUNT(OrderID) AS NumberOfOrders,
+  DENSE_RANK() OVER (ORDER BY COUNT(OrderID) DESC) AS Rank
+  FROM Orders
+  GROUP BY ShipVia
+)
+SELECT s.CompanyName, cte.*
+FROM Shippers s
+JOIN cte ON s.ShipperID = cte.ShipVia
+WHERE Rank = 1;
+```
+
+---
+
+**4. Top 3 Countries by Customer Count:**  
+
+```sql
+WITH cte AS (
+  SELECT Country, COUNT(CustomerID) AS CustomerCount,
+  DENSE_RANK() OVER (ORDER BY COUNT(CustomerID) DESC) AS Rank
+  FROM Customers
+  GROUP BY Country
+)
+SELECT * FROM cte WHERE Rank <= 3;
+```
 
 ---

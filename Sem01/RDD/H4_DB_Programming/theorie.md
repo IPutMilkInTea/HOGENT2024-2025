@@ -1,197 +1,288 @@
-# H4 DB Programming SP + Cursors + Triggers + Tables and User Defined Types
+# H4 DB_PROGRAMMING
 
-Stored procedures en gebruikersgedefinieerde functies zijn programmeerconstructies in SQL Server waarmee je herbruikbare stukjes SQL-code kunt maken. In dit document leg ik uit hoe je deze objecten kunt gebruiken en beheren, inclusief controle-structuren en foutafhandeling.
+## **1. Stored Procedures (SP):**  
 
-## 1. Wat zijn Stored Procedures?
+**Purpose:**
+Stored Procedures (SP) are precompiled SQL statements stored as database objects. They encapsulate logic for reuse, modularization, and security.  
 
-Een stored procedure (SP) is een verzameling SQL-opdrachten die als een enkel database-object wordt opgeslagen. Het biedt voordelen zoals herbruikbaarheid, betere prestaties en beveiliging. Een SP kan parameters accepteren, waarden retourneren en controle-logica bevatten (zoals `IF`, `WHILE`).
+---
 
-**Voorbeeld van een Stored Procedure:**
+**Example 1: Basic Stored Procedure**  
 
 ```sql
-CREATE OR ALTER PROCEDURE ShowFirstXEmployees @x INT, @missed INT OUTPUT
+CREATE PROCEDURE OrdersSelectAll
 AS
-DECLARE @empid INT = 1, @fullname NVARCHAR(100), @city NVARCHAR(30), @total INT
-
-SELECT @total = COUNT(*) FROM Employees
-SET @missed = CASE WHEN @x > @total THEN 0 ELSE @total - @x END
-
-WHILE @empid <= @x
-BEGIN
-    SELECT @fullname = firstname + ' ' + lastname, @city = city 
-    FROM Employees 
-    WHERE employeeid = @empid
-    PRINT 'Full Name : ' + @fullname
-    PRINT 'City : ' + @city
-    SET @empid += 1
-END
+SELECT * FROM Orders;
 ```
 
-### Test de SP
+**Explanation:**  
+
+- A simple stored procedure that selects all records from the `Orders` table.  
+- Can be executed using:  
 
 ```sql
-DECLARE @numberOfMissedEmployees INT
-EXEC ShowFirstXEmployees 5, @numberOfMissedEmployees OUT
-PRINT 'Number of missed employees: ' + STR(@numberOfMissedEmployees)
+EXEC OrdersSelectAll;
 ```
 
-## 2. Foutafhandeling met `@@error` en `RAISERROR`
+---
 
-Fouten kunnen worden afgehandeld met `@@error` of de meer geavanceerde `TRY ... CATCH`-blokken.
-
-**Eenvoudige foutafhandeling met `@@error`:**
+**Example 2: Stored Procedure with Input/Output Parameters**  
 
 ```sql
-CREATE OR ALTER PROCEDURE ProductInsert @productName NVARCHAR(50) = NULL, @categoryID INT = NULL AS
-DECLARE @errormsg INT
+CREATE PROCEDURE OrdersSelectAllForCustomer 
+  @customerID INT, 
+  @numberOfOrders INT OUTPUT
+AS
+SELECT @numberOfOrders = COUNT(*)
+FROM Orders
+WHERE customerID = @customerID;
+```
+
+**Explanation:**
+
+- This procedure accepts a customer ID and returns the number of orders.
+- Call it with:
+
+```sql
+DECLARE @orderCount INT;
+EXEC OrdersSelectAllForCustomer 5, @orderCount OUTPUT;
+PRINT @orderCount;
+```
+
+---
+
+## **2. Error Handling in Stored Procedures:**  
+
+**Purpose:**
+Handle errors gracefully using `TRY...CATCH` blocks or error codes.  
+
+**Example: Handling Errors with @@ERROR**  
+
+```sql
+CREATE PROCEDURE ProductInsert 
+  @productName NVARCHAR(50) = NULL, 
+  @categoryID INT = NULL
+AS
+DECLARE @errormsg INT;
 INSERT INTO Products(ProductName, CategoryID, Discontinued) 
-VALUES (@productName, @categoryID, 0)
+VALUES (@productName, @categoryID, 0);
 
-SET @errormsg = @@error
-IF @errormsg <> 0 
-    PRINT 'ERROR: Could not insert product. Error: ' + STR(@errormsg)
+SET @errormsg = @@ERROR;
+
+IF @errormsg = 0
+    PRINT 'SUCCESS!';
 ELSE
-    PRINT 'SUCCESS: Product inserted'
-RETURN @errormsg
+    PRINT 'ERROR! Unable to add product.';
+RETURN @errormsg;
 ```
 
-## 3. `TRY ... CATCH` voor Uitgebreide Foutafhandeling
+---
 
-Gebruik `TRY ... CATCH` voor gedetailleerde foutinformatie.
+**Example: Using RAISERROR to Create Custom Error Messages**  
 
 ```sql
-CREATE OR ALTER PROCEDURE DeleteShipper @ShipperID INT, @NumberOfDeletedShippers INT OUT
+IF @errormsg != 0
+    RAISERROR ('CategoryID is invalid.', 18, 1);
+```
+
+---
+
+## **3. Exception Handling (TRY...CATCH):**  
+
+```sql
+ALTER PROCEDURE DeleteShipper 
+  @ShipperID INT, 
+  @NumberOfDeletedShippers INT OUT
 AS
 BEGIN
-    BEGIN TRY
-        DELETE FROM Shippers WHERE ShipperID = @ShipperID
-        SET @NumberOfDeletedShippers = @@ROWCOUNT
-    END TRY
-    BEGIN CATCH
-        PRINT 'Error Number = ' + STR(ERROR_NUMBER())
-        PRINT 'Error Procedure = ' + ERROR_PROCEDURE()
-        PRINT 'Error Message = ' + ERROR_MESSAGE()
-    END CATCH
-END
+BEGIN TRY
+    DELETE FROM Shippers WHERE ShipperID = @ShipperID;
+    SET @NumberOfDeletedShippers = @@ROWCOUNT;
+END TRY
+BEGIN CATCH
+    PRINT 'Error: ' + ERROR_MESSAGE();
+END CATCH;
+END;
 ```
 
-## 4. Gebruikersgedefinieerde Functies
+**Explanation:**  
 
-Functies in SQL Server geven een enkele waarde of een tabel terug. Bijvoorbeeld, een functie die het netto maandsalaris van een werknemer berekent:
+- The transaction rolls back if an error occurs, ensuring database integrity.  
 
-**Functie voor Netto Salaris Berekening:**
+---
+
+## **4. User Defined Functions (UDF):**  
+
+**Purpose:**
+Custom functions can encapsulate business logic and return values or tables.  
+
+**Example: Calculate Net Salary**  
 
 ```sql
-CREATE OR ALTER FUNCTION CalculateNettoPerMonth (@salary MONEY)
+CREATE FUNCTION CalculateNettoPerMonth (@salary MONEY)
 RETURNS MONEY
 AS
 BEGIN
-    RETURN
-        CASE 
-            WHEN @salary <= 40000 THEN @salary * 0.7 / 12
-            WHEN @salary <= 55000 THEN @salary * 0.65 / 12
-            ELSE @salary * 0.6 / 12
-        END
-END
+RETURN
+    CASE 
+        WHEN @salary <= 40000 THEN @salary * 0.7 / 12
+        WHEN @salary <= 55000 THEN @salary * 0.65 / 12
+        ELSE @salary * 0.6 / 12
+    END;
+END;
 ```
 
-### Functie gebruiken in een `SELECT`-query
+**Use:**  
 
 ```sql
-SELECT firstname + ' ' + lastname, dbo.CalculateNettoPerMonth(salary)
-FROM Employees
-WHERE dbo.CalculateNettoPerMonth(salary) > 2800
+SELECT LastName, dbo.CalculateNettoPerMonth(Salary) AS NetSalary 
+FROM Employees;
 ```
 
-## 5. Inline Table-Valued Functies
+---
 
-Inline table-valued functies retourneren een tabel en zijn handig voor parametrische views.
+## **5. Cursors:**  
 
-**Voorbeeld van een Table-Valued Functie:**
+**Purpose:**
+Process row-by-row results from a query, allowing iterative operations.  
+
+**Example: Basic Cursor**  
 
 ```sql
-CREATE FUNCTION CheapestProductsAboveLimit (@limit MONEY) RETURNS TABLE
-AS
-RETURN 
-    SELECT CategoryID AS cat, MIN(UnitPrice) AS minprice
-    FROM Products 
-    WHERE UnitPrice > @limit
-    GROUP BY CategoryID
+DECLARE suppliers_cursor CURSOR
+FOR SELECT SupplierID, CompanyName FROM Suppliers WHERE Country = 'USA';
+
+OPEN suppliers_cursor;
+FETCH NEXT FROM suppliers_cursor INTO @supplierID, @companyName;
+
+WHILE @@FETCH_STATUS = 0 
+BEGIN
+    PRINT @companyName;
+    FETCH NEXT FROM suppliers_cursor INTO @supplierID, @companyName;
+END;
+
+CLOSE suppliers_cursor;
+DEALLOCATE suppliers_cursor;
 ```
 
-### Gebruik de Table-Valued Functie
+**Explanation:**
+
+- Iterates over suppliers from the USA and prints each name.  
+
+---
+
+**Example: Nested Cursor (Supplier and Products)**  
 
 ```sql
-SELECT p.CategoryID, p.ProductID, p.UnitPrice, m.minprice
-FROM Products p 
-JOIN dbo.CheapestProductsAboveLimit(5) m ON p.CategoryID = m.cat
-WHERE p.UnitPrice = m.minprice
+DECLARE suppliers_cursor CURSOR FOR
+SELECT SupplierID, CompanyName FROM Suppliers WHERE Country = 'USA';
+
+OPEN suppliers_cursor;
+FETCH NEXT FROM suppliers_cursor INTO @supplierID, @companyName;
+
+WHILE @@FETCH_STATUS = 0 
+BEGIN
+    PRINT 'Supplier: ' + @companyName;
+
+    DECLARE products_cursor CURSOR FOR
+    SELECT ProductID, ProductName FROM Products WHERE SupplierID = @supplierID;
+
+    OPEN products_cursor;
+    FETCH NEXT FROM products_cursor INTO @productID, @productName;
+
+    WHILE @@FETCH_STATUS = 0
+    BEGIN
+        PRINT '- ' + @productName;
+        FETCH NEXT FROM products_cursor INTO @productID, @productName;
+    END;
+
+    CLOSE products_cursor;
+    DEALLOCATE products_cursor;
+
+    FETCH NEXT FROM suppliers_cursor INTO @supplierID, @companyName;
+END;
+
+CLOSE suppliers_cursor;
+DEALLOCATE suppliers_cursor;
 ```
 
-## 6. Voorbeelden van Oefeningen
+---
 
-**Oefening 1:** Een stored procedure `ContactCustomers` om klanten op te halen die een product hebben besteld van een opgegeven leverancier.
+## **6. Triggers:**
+
+**Purpose:**
+
+Triggers execute automatically when specific changes occur in a table (INSERT, UPDATE, DELETE).  
+
+---
+
+**Example: Insert Trigger (Price Validation)** 
 
 ```sql
-CREATE OR ALTER PROCEDURE ContactCustomers (@companyName NVARCHAR(40), @numberOfInvolvedCustomers INT OUT) 
+CREATE OR ALTER TRIGGER insertOrderDetails 
+ON OrderDetails 
+FOR INSERT
 AS
 BEGIN
-    IF @companyName IS NULL
-    BEGIN
-        PRINT 'Please provide a CompanyName'
-        RETURN
-    END
+    DECLARE @insertedProductID INT = (SELECT ProductID FROM inserted);
+    DECLARE @insertedUnitPrice MONEY = (SELECT UnitPrice FROM inserted);
+    DECLARE @unitPriceFromProducts MONEY = 
+        (SELECT UnitPrice FROM Products WHERE ProductID = @insertedProductID);
     
-    IF NOT EXISTS (SELECT * FROM Suppliers WHERE CompanyName = @companyName)
+    IF @insertedUnitPrice NOT BETWEEN @unitPriceFromProducts * 0.85 
+        AND @unitPriceFromProducts * 1.15
     BEGIN
-        PRINT 'The supplier doesn''t exist.'
-        RETURN
-    END
-
-    SELECT * FROM Customers c
-    JOIN Orders o ON c.CustomerID = o.CustomerID
-    JOIN OrderDetails od ON o.OrderID = od.OrderID
-    JOIN Products p ON od.ProductID = p.ProductID
-    JOIN Suppliers s ON p.SupplierID = s.SupplierID
-    WHERE DATEDIFF(MONTH, o.OrderDate, '2018-10-21') <= 6 
-      AND s.CompanyName = @companyName
-
-    SET @numberOfInvolvedCustomers = @@ROWCOUNT
-END
+        ROLLBACK TRANSACTION;
+        RAISERROR ('Invalid Unit Price', 16, 1);
+    END;
+END;
 ```
 
-**Oefening 2:** Een SP `InsertProduct` die nieuwe `OrderDetails` invoegt, maar valideert op het bestaan van `OrderID` en `ProductID`, en zorgt dat het prijsverschil niet meer dan 15% afwijkt van de standaardprijs.
+---
+
+**Example: Delete Trigger (Update Stock Levels)**  
 
 ```sql
-CREATE OR ALTER PROCEDURE InsertProduct (@orderID INT, @productID INT, @unitPrice MONEY = NULL, @quantity SMALLINT, @discount REAL = NULL)
+CREATE OR ALTER TRIGGER deleteOrderDetails 
+ON OrderDetails 
+FOR DELETE
 AS
 BEGIN
-    IF NOT EXISTS (SELECT 1 FROM Orders WHERE OrderID = @orderID)
+    DECLARE @deletedProductID INT, @deletedQuantity INT;
+    DECLARE deleted_cursor CURSOR FOR 
+    SELECT ProductID, Quantity FROM deleted;
+    
+    OPEN deleted_cursor;
+    FETCH NEXT FROM deleted_cursor INTO @deletedProductID, @deletedQuantity;
+
+    WHILE @@FETCH_STATUS = 0
     BEGIN
-        PRINT 'Invalid OrderID'
-        RETURN
-    END
-    
-    IF NOT EXISTS (SELECT 1 FROM Products WHERE ProductID = @productID)
-    BEGIN
-        PRINT 'Invalid ProductID'
-        RETURN
-    END
-    
-    DECLARE @standardPrice MONEY = (SELECT UnitPrice FROM Products WHERE ProductID = @productID)
-    
-    IF @unitPrice IS NULL SET @unitPrice = @standardPrice
-    IF @unitPrice < @standardPrice * 0.85 OR @unitPrice > @standardPrice * 1.15
-    BEGIN
-        PRINT 'Unit price deviation exceeds 15%'
-        RETURN
-    END
-    
-    INSERT INTO OrderDetails (OrderID, ProductID, UnitPrice, Quantity, Discount)
-    VALUES (@orderID, @productID, @unitPrice, @quantity, COALESCE(@discount, 0))
-    
-    PRINT 'Product inserted successfully'
-END
+        UPDATE Products
+        SET UnitsInStock = UnitsInStock + @deletedQuantity
+        WHERE ProductID = @deletedProductID;
+        FETCH NEXT FROM deleted_cursor INTO @deletedProductID, @deletedQuantity;
+    END;
+
+    CLOSE deleted_cursor;
+    DEALLOCATE deleted_cursor;
+END;
+```
+
+---
+
+## **7. Temporary Tables and Table Variables:**  
+
+- **Local Temporary Table** – Visible in session.  
+- **Global Temporary Table** – Visible to all sessions.  
+- **Table Variable** – Limited to the batch in which it is declared.  
+
+**Example: Local Temporary Table**  
+
+```sql
+CREATE TABLE #OrderTotalsByYear (
+    OrderYear INT PRIMARY KEY, 
+    TotalQuantity INT
+);
 ```
 
 ---
